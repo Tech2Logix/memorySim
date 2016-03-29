@@ -6,9 +6,8 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
-import Scheduling.Algoritmes;
 import Scheduling.InstructieList;
-import Scheduling.RAM;
+import Scheduling.ToestandMachine;
 
 
 
@@ -29,7 +28,9 @@ public class Main {
 		}
 		System.out.println("data ingelezen");
 		
-		RAM ram = new RAM();
+		ToestandMachine pc = new ToestandMachine();
+		
+		pc.doorloopVolgendeInstructie(instructies);
 		
 		
 		

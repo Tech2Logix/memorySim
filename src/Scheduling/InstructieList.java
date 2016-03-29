@@ -7,9 +7,16 @@ import javax.xml.bind.annotation.*;
 @XmlRootElement(name = "instructionlist")
 public class InstructieList {
 	private LinkedList<Instructie> instructieLijst;
+	private int loper;
 	
 	public InstructieList(){
 		instructieLijst = new LinkedList<Instructie>();
+		loper=-1;
+	}
+	
+	public Instructie getNextInstructie(){
+		loper++;
+		return instructieLijst.get(loper);
 	}
 	
 	@XmlElement(name="instruction")
