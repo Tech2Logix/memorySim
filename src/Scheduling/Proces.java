@@ -14,6 +14,9 @@ public class Proces {
 		nLeesopdrachten=0;
 	}
 	
+	public void addSchrijven(){
+		nSchrijfopdrachten++;
+	}
 	
 	public PagetableEntrie getPagetableEntrie(int i){
 		return pagetable[i];

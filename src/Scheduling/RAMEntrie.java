@@ -25,14 +25,30 @@ public class RAMEntrie {
 	}
 	
 	public int getLastAcces(){
-		return proces.getPagetableEntrie(pageEntrie).getLastAcces();
+		if(pageEntrie == -1){
+			return -1;//zo zal een lege entrie zeker voorrang krijgen op een andere
+		}
+		else return proces.getPagetableEntrie(pageEntrie).getLastAcces();
 	}
 	public PagetableEntrie getPagetableEntrie(){
 		return proces.getPagetableEntrie(pageEntrie);
 	}
-	public void setUitRam(){
+	
+	public void setUitRamEnVoegToe(Proces p){
+		//OUD WISSEN:
 		boolean schrijven = proces.getPagetableEntrie(pageEntrie).setUitRam();
+		if(schrijven){
+			proces.addSchrijven();
+		}
 		
+		//NIEUW TOEVOEGEN:
+		proces=p;
+		pageEntrie=-1;
+	}
+	
+	public void vulMet(Proces p){
+		proces=p;
+		pageEntrie=-1;
 	}
 	
 }

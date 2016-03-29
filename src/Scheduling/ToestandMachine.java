@@ -11,6 +11,9 @@ public class ToestandMachine {
 	
 	public ToestandMachine(){
 		ram=new RAMEntrie[12];
+		for(int i=0;i<12;i++){
+			ram[i]=new RAMEntrie(); 
+		}
 		alleProcessen = new ArrayList<Proces>();
 		processenInRam = new ArrayList<Proces>();
 		timer=0;
@@ -30,31 +33,44 @@ public class ToestandMachine {
 				break;
 			case "Read":    
 				break;
+				
 			case "Start":
 				p=new Proces();
+				oudsteFrame=new RAMEntrie(); //dit heeft geen betekenis, is enkel zodat geen error komt door oningevulde variabele
 				alleProcessen.add(p);
 				
+				
+	
 				if(processenInRam.size()==4){
 					//proces uit ram halen->komt alleen voor in tweede voorbeelddata
 				}
 				
-				
-				
-				nodigeEntries=12/(processenInRam.size()+1);
-				toegewezenEntries=0;
-				while(nodigeEntries > toegewezenEntries){
-					for(Proces pr: processenInRam){
-						oudsteTotNu=timer;
-						for(RAMEntrie ra:ram){
-							if( (ra.getProces()==pr) && (ra.getLastAcces() < oudsteTotNu)) {
-								oudsteTotNu = ra.getLastAcces();
-								oudsteFrame = ra;
-							}
-						}
-						toegewezenEntries++;
-						ra.getPagetableEntrie
+				else if(processenInRam.size()==0){
+					for (RAMEntrie r: ram){
+						r.vulMet(p);
 					}
 				}
+				
+				else{
+					nodigeEntries=12/(processenInRam.size()+1);
+					toegewezenEntries=0;
+					while(nodigeEntries > toegewezenEntries){
+						for(Proces pr: processenInRam){
+							oudsteTotNu=timer;
+							
+							for(RAMEntrie ra:ram){
+								if( (ra.getProces()==pr) && (ra.getLastAcces() < oudsteTotNu)) {
+									oudsteTotNu = ra.getLastAcces();
+									oudsteFrame = ra;
+								}
+							}
+							toegewezenEntries++;
+							oudsteFrame.setUitRamEnVoegToe(p);
+							
+						}
+					}
+				}
+				
 				processenInRam.add(p);
 				
 				break;
