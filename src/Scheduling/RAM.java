@@ -4,9 +4,9 @@ import java.awt.List;
 import java.util.ArrayList;
 
 public class RAM {
-	private ArrayList<Pagetable> ramGeheugen;
+	private RAMEntrie[] ramEntrie;
 	
 	public RAM(){
-		ramGeheugen = new ArrayList<Pagetable>();
+		ramEntrie = new RAMEntrie[12];
 	}
 }
