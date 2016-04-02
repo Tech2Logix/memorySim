@@ -5,6 +5,7 @@ import javax.xml.bind.annotation.*;
 public class Instructie {
 	private int procesID, adress;
 	private String operatie;
+	
 	public int getProcesID() {
 		return procesID;
 	}
