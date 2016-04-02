@@ -14,14 +14,13 @@ public class RAMEntrie {
 	public Proces getProces() {
 		return proces;
 	}
-	public void setProces(Proces proces) {
-		this.proces = proces;
+	
+	public int getProcesID(){
+		return proces.getProcesNummer();
 	}
+
 	public int getPageEntrie() {
 		return pageEntrie;
-	}
-	public void setPageEntrie(int pageEntrie) {
-		this.pageEntrie = pageEntrie;
 	}
 	
 	public int getLastAcces(){

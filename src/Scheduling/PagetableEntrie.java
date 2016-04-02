@@ -42,12 +42,10 @@ public class PagetableEntrie {
 	public void setFrameNummer(int frameNummer) {
 		this.frameNummer = frameNummer;
 	}
-	public int doeUitRam(){
-		int leegFrameNummer=frameNummer;
+	public void doeUitRam(){
 		frameNummer=-1;
 		present=false;
 		modify=false;
-		return leegFrameNummer;
 	}
 	
 	public void doeInRam(int nr, int time){
@@ -57,7 +55,7 @@ public class PagetableEntrie {
 		modify=false;
 	}
 	
-	public boolean setUitRam(){
+	public boolean setUitRam(){ 
 		boolean schrijven=false;
 		if(modify=true){
 			schrijven=true;

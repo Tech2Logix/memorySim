@@ -10,15 +10,12 @@ import Scheduling.InstructieList;
 import Scheduling.ToestandMachine;
 
 
-
 public class Main {
 
-	private InstructieList instructies;
-	
 	public static void main(String[] args) {
 		InstructieList instructies = new InstructieList();
 		try {
-			String instructieXML = "Instructions_20000_4.xml";
+			String instructieXML = "Instructions_eigenTest.xml";
 			File file = new File(instructieXML);
 			JAXBContext jaxbContext = JAXBContext.newInstance(InstructieList.class);
 			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
@@ -44,8 +41,9 @@ public class Main {
 		pc.doorloopVolgendeInstructie(instructies);
 		pc.printToestand(instructies);
 		
+
 		
-		//Algoritmes al = new Algoritmes();
+		
 	}
 
 }

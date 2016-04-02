@@ -9,7 +9,7 @@ public class ToestandMachine {
 	private Instructie huidigeInstr;
 	private int timer;
 	private int nLeesOpdrachten;
-	private int nSchrijfOpdrachten; //van persistentGeheugen naar RAM
+	private int nSchrijfOpdrachten; 
 	
 	public ToestandMachine(){
 		ram=new RAMEntrie[12];
@@ -29,21 +29,10 @@ public class ToestandMachine {
 		
 		
 		switch(huidigeInstr.getOperatie()){
-			case "Write": 
-				read(i);
-				write(i);
-				
-				break;
-			case "Read": 
-				read(i);
-				break;
-				
-			case "Start":
-				start(i);
-				
-				break;
-			case "Terminate": 
-				break;
+			case "Write": read(i); write(i); break;
+			case "Read": read(i); break;
+			case "Start": start(i); break;
+			case "Terminate": terminate(i); break;
 			default: break;
 		}
 	}
@@ -94,16 +83,12 @@ public class ToestandMachine {
 	}
 	
 	public void start(InstructieList i){
-		Proces huidigProces;
-		RAMEntrie oudsteFrame;
 		int nodigeEntries,toegewezenEntries, oudsteTotNu;
 		huidigeInstr = i.getInstructie(timer);
-		huidigProces=new Proces();
-		oudsteFrame=new RAMEntrie(); //dit heeft geen betekenis, is enkel zodat geen error komt door oningevulde variabele
+		Proces huidigProces=new Proces();
+		RAMEntrie oudsteFrame=new RAMEntrie(); //dit heeft geen betekenis, is enkel zodat geen error komt door oningevulde variabele
 		alleProcessen.add(huidigProces);
 		
-		
-
 		if(processenInRam.size()==4){
 			//proces uit ram halen->komt alleen voor in tweede voorbeelddata
 		}
@@ -120,7 +105,6 @@ public class ToestandMachine {
 			while(nodigeEntries > toegewezenEntries){
 				for(Proces pr: processenInRam){
 					oudsteTotNu=timer;
-					
 					for(RAMEntrie ra:ram){
 						if( (ra.getProces()==pr) && (ra.getLastAcces() < oudsteTotNu)) {
 							oudsteTotNu = ra.getLastAcces();
@@ -129,12 +113,61 @@ public class ToestandMachine {
 					}
 					toegewezenEntries++;
 					oudsteFrame.setUitRamEnVoegToe(huidigProces);
-					
 				}
 			}
 		}
-		
 		processenInRam.add(huidigProces);
+	}
+	
+	public void terminate(InstructieList i){
+		int oudProcesID=i.getInstructie(timer-1).getProcesID();
+		Proces pr=processenInRam.get(0);//de beginwaarde speelt geen rol
+		for(Proces p: processenInRam){
+			if (p.getProcesNummer()==oudProcesID){
+				pr=p;
+			}
+		}
+		processenInRam.remove(pr);
+		
+		int loper=0, k=0, nOverigeActieveProcessen=processenInRam.size();
+		System.out.println("hallo!"+nOverigeActieveProcessen);
+		if(nOverigeActieveProcessen==0){
+			//hier moet niets gebeuren want het ram kan niet doorgegeven worden?
+			
+		}else{
+			int nNieuwePlaatsenPerProces;
+			switch (nOverigeActieveProcessen){ 
+				case 1: nNieuwePlaatsenPerProces=6;break;
+				case 2: nNieuwePlaatsenPerProces=2;break;
+				default: nNieuwePlaatsenPerProces=1;break; //= case 3
+			}
+			for (int j=0; j<nOverigeActieveProcessen; j++){
+				int teller=nNieuwePlaatsenPerProces;
+				while(teller>0){
+					if(ram[loper].getProcesID()==oudProcesID){
+						//eventueel +write:
+						if(ram[loper].getPageEntrie()!=-1){
+							if(ram[loper].getPagetableEntrie().isModify()){
+								nSchrijfOpdrachten++;
+							}
+							//oudepagetables aanpassen
+							ram[loper].getPagetableEntrie().doeUitRam();
+						}
+						//ram vullen
+						ram[loper].vulMet(processenInRam.get(j));
+						teller--;					
+					}
+					loper++;
+				}
+			}
+		}
+		while(loper<12){
+			if(ram[loper].getProces().getProcesNummer()==oudProcesID){
+				ram[loper].vulMet(processenInRam.get(k));
+				k++;
+				k = (k<nOverigeActieveProcessen) ? k : 0; //op die manier beginnen we weer bij 0 als we alle processen al gehad hebben
+			}
+		}
 	}
 	
 	public void printToestand(InstructieList il){
