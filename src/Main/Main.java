@@ -30,13 +30,11 @@ public class Main {
 		
 		ToestandMachine pc = new ToestandMachine();
 		
-		pc.printToestand();
 		
 		
 		pc.doorloopVolgendeInstructie(instructies);
 		
-		pc.printToestand();
-		
+		pc.printToestand(instructies);
 		
 		
 		//Algoritmes al = new Algoritmes();

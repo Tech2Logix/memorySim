@@ -36,10 +36,10 @@ public class RAMEntrie {
 	
 	public void setUitRamEnVoegToe(Proces p){
 		//OUD WISSEN:
-		boolean schrijven = proces.getPagetableEntrie(pageEntrie).setUitRam();
-		if(schrijven){
-			proces.addSchrijven();
-		}
+		//boolean schrijven = proces.getPagetableEntrie(pageEntrie).setUitRam();
+		//if(schrijven){
+		//	proces.addSchrijven();
+		//}
 		
 		//NIEUW TOEVOEGEN:
 		proces=p;
@@ -49,6 +49,10 @@ public class RAMEntrie {
 	public void vulMet(Proces p){
 		proces=p;
 		pageEntrie=-1;
+	}
+	public void voegEntrieToe(Proces p, int nr){
+		proces=p;
+		pageEntrie=nr;
 	}
 	
 	public void print(){

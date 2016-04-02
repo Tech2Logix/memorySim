@@ -42,6 +42,20 @@ public class PagetableEntrie {
 	public void setFrameNummer(int frameNummer) {
 		this.frameNummer = frameNummer;
 	}
+	public int doeUitRam(){
+		int leegFrameNummer=frameNummer;
+		frameNummer=-1;
+		present=false;
+		modify=false;
+		return leegFrameNummer;
+	}
+	
+	public void doeInRam(int nr, int time){
+		frameNummer=nr;
+		lastAcces=time;
+		present=true;
+		modify=false;
+	}
 	
 	public boolean setUitRam(){
 		boolean schrijven=false;
@@ -55,5 +69,8 @@ public class PagetableEntrie {
 		return schrijven;
 	}
 	
+	public void print(){
+		System.out.println("present: "+present+"\tmodify: "+modify+"\tframe nummer: "+frameNummer+"\tlast acces:"+lastAcces);
+	}
 	
 }

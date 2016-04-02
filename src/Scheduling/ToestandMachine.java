@@ -8,6 +8,8 @@ public class ToestandMachine {
 	private ArrayList<Proces> processenInRam;
 	private Instructie huidigeInstr;
 	private int timer;
+	private int nLeesopdrachten;
+	private int nSchrijfopdrachten; //van persistentGeheugen naar RAM
 	
 	public ToestandMachine(){
 		ram=new RAMEntrie[12];
@@ -17,12 +19,14 @@ public class ToestandMachine {
 		alleProcessen = new ArrayList<Proces>();
 		processenInRam = new ArrayList<Proces>();
 		timer=0;
+		nSchrijfopdrachten=0;
+		nLeesopdrachten=0;
 	}
 	
 	public void doorloopVolgendeInstructie(InstructieList i){ //dit is slechts 1 instructie uitvoeren
 		Proces p;
 		RAMEntrie oudsteFrame;
-		int nodigeEntries,toegewezenEntries, oudsteTotNu, paginaNummer;
+		int nodigeEntries,toegewezenEntries, oudsteTotNu, paginaNummer, procesID, oudsteEntrie, leegFrameNummer;
 		huidigeInstr = i.getInstructie(timer);
 		timer++;
 		
@@ -32,12 +36,37 @@ public class ToestandMachine {
 				
 				break;
 			case "Read": 
+				/*p=alleProcessen.get(huidigeInstr.getProcesID());
 				paginaNummer=huidigeInstr.getAdress()/4096;
-				if(!alleProcessen.get(huidigeInstr.getProcesID()).paginaNummerPresent(paginaNummer)){
+				if(!alleProcessen.get(huidigeInstr.getProcesID()).paginaNummerPresent(paginaNummer)){//als het niet aanwezig is in ram
+					oudsteTotNu=timer;
+					procesID=huidigeInstr.getProcesID();
+					RAMEntrie teVervangenRam=ram[0];//moet een beginwaarde hebben, maakt niet uit wat dit is
+					for(RAMEntrie e: ram){
+						if( (e.getProces().getProcesNummer()==procesID) && (e.getLastAcces()<oudsteTotNu)){
+							teVervangenRam=e;
+						}
+					}
+					//page table aanpassen:
+					if(teVervangenRam.getPageEntrie()!=-1){
+						if((p.getPagetableEntrie(teVervangenRam.getPageEntrie()).isModify())){ //-1 is een niet toegewezen entrie
+							nSchrijfopdrachten++;
+						}
+						
+						leegFrameNummer=p.getPagetableEntrie(teVervangenRam.getPageEntrie()).doeUitRam();
+					}
+					p.getPagetableEntrie(paginaNummer).doeInRam(leegFrameNummer, timer);
 					
+					//ramtable aanpassen:
+					nLeesopdrachten++;
+					teVervangenRam.voegEntrieToe(p, paginaNummer);
+				}
+				else{
+					//lastacces nog aanpassen
+					p.getPagetableEntrie(paginaNummer).setLastAcces(timer);
 				}
 				break;
-				
+				*/
 			case "Start":
 				p=new Proces();
 				oudsteFrame=new RAMEntrie(); //dit heeft geen betekenis, is enkel zodat geen error komt door oningevulde variabele
@@ -84,7 +113,7 @@ public class ToestandMachine {
 		}
 	}
 	
-	public void printToestand(){
+	public void printToestand(InstructieList il){
 		System.out.println("-------------------------------------------");
 		System.out.println("\ntimer="+timer+"\n");
 		
@@ -93,5 +122,11 @@ public class ToestandMachine {
 			System.out.print(i+"\t");
 			ram[i].print();
 		}
+		
+		int procesID=il.getInstructie(timer-1).getProcesID();
+		Proces p=alleProcessen.get(procesID);
+		System.out.println("\n  PAGETABLE van proces "+procesID+"\n  ---------");
+		p.printPageTables();
+		
 	}
 }
