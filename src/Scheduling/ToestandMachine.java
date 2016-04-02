@@ -22,7 +22,7 @@ public class ToestandMachine {
 	public void doorloopVolgendeInstructie(InstructieList i){ //dit is slechts 1 instructie uitvoeren
 		Proces p;
 		RAMEntrie oudsteFrame;
-		int nodigeEntries,toegewezenEntries, oudsteTotNu;
+		int nodigeEntries,toegewezenEntries, oudsteTotNu, paginaNummer;
 		huidigeInstr = i.getInstructie(timer);
 		timer++;
 		
@@ -31,7 +31,11 @@ public class ToestandMachine {
 			case "Write":  
 				
 				break;
-			case "Read":    
+			case "Read": 
+				paginaNummer=huidigeInstr.getAdress()/4096;
+				if(!alleProcessen.get(huidigeInstr.getProcesID()).paginaNummerPresent(paginaNummer)){
+					
+				}
 				break;
 				
 			case "Start":
@@ -77,6 +81,17 @@ public class ToestandMachine {
 			case "Terminate": 
 				break;
 			default: break;
+		}
+	}
+	
+	public void printToestand(){
+		System.out.println("-------------------------------------------");
+		System.out.println("\ntimer="+timer+"\n");
+		
+		System.out.println("  RAM:"+"\n  ----");
+		for(int i=0;i<12;i++){
+			System.out.print(i+"\t");
+			ram[i].print();
 		}
 	}
 }

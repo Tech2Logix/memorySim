@@ -1,10 +1,20 @@
 package Scheduling;
 
 public class Proces {
+	static int nVoorgaandeProcessen=0;
 	private PagetableEntrie[] pagetable;
 	private int nSchrijfopdrachten; //van persistentGeheugen naar RAM
 	private int nLeesopdrachten;
+	private int procesNummer;
 	
+	public int getProcesNummer() {
+		return procesNummer;
+	}
+
+	public void setProcesNummer(int procesNummer) {
+		this.procesNummer = procesNummer;
+	}
+
 	public Proces(){
 		pagetable = new PagetableEntrie[16];
 		for (int i=0;i<16;i++){
@@ -12,6 +22,8 @@ public class Proces {
 		}
 		nSchrijfopdrachten=0;
 		nLeesopdrachten=0;
+		procesNummer=nVoorgaandeProcessen;
+		nVoorgaandeProcessen++;
 	}
 	
 	public void addSchrijven(){
@@ -43,6 +55,9 @@ public class Proces {
 
 	public void setnLeesopdrachten(int nLeesopdrachten) {
 		this.nLeesopdrachten = nLeesopdrachten;
+	}
+	public boolean paginaNummerPresent(int i){
+		return pagetable[i].isPresent();
 	}
 	
 }

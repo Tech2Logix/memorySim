@@ -51,4 +51,13 @@ public class RAMEntrie {
 		pageEntrie=-1;
 	}
 	
+	public void print(){
+		if (proces != null){
+			System.out.println("proces: " + proces.getProcesNummer()+"\tpage entrie: "+pageEntrie);
+		}
+		else{
+			System.out.println("niet toegwezen aan een proces");
+		}
+	}
+	
 }
