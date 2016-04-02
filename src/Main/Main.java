@@ -41,6 +41,17 @@ public class Main {
 		pc.doorloopVolgendeInstructie(instructies);
 		pc.printToestand(instructies);
 		
+		pc.doorloopVolgendeInstructie(instructies);
+		pc.printToestand(instructies);
+		
+		pc.doorloopVolgendeInstructie(instructies);
+		pc.printToestand(instructies);
+		
+		pc.doorloopVolgendeInstructie(instructies);
+		pc.printToestand(instructies);
+		
+		pc.doorloopVolgendeInstructie(instructies);
+		pc.printToestand(instructies);
 
 		
 		

@@ -27,7 +27,6 @@ public class ToestandMachine {
 		huidigeInstr = i.getInstructie(timer);
 		timer++;
 		
-		
 		switch(huidigeInstr.getOperatie()){
 			case "Write": read(i); write(i); break;
 			case "Read": read(i); break;

@@ -16,8 +16,28 @@
 		<address>0</address>
 	</instruction>
 	<instruction>
-		<processID>0</processID>
-		<operation>Terminate</operation>
+		<processID>2</processID>
+		<operation>Start</operation>
 		<address>0</address>
+	</instruction>
+	<instruction>
+		<processID>3</processID>
+		<operation>Start</operation>
+		<address>0</address>
+	</instruction>
+	<instruction>
+		<processID>0</processID>
+		<operation>Write</operation>
+		<address>1000</address>
+	</instruction>
+	<instruction>
+		<processID>0</processID>
+		<operation>Write</operation>
+		<address>9000</address>
+	</instruction>
+	<instruction>
+		<processID>0</processID>
+		<operation>Write</operation>
+		<address>27639</address>
 	</instruction>
 </instructionlist>
