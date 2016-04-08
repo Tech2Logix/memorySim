@@ -35,5 +35,9 @@ public class Instructie {
 		System.out.print("   operatie: "+operatie);
 		System.out.println("   adres:"+adress);
 	}
-
+	
+	@Override
+	public String toString() {
+		return "Instructie [procesID=" + procesID + ", adress=" + adress + ", operatie=" + operatie + "]";
+	}
 }

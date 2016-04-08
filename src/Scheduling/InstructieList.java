@@ -12,6 +12,13 @@ public class InstructieList {
 		instructieLijst = new LinkedList<Instructie>();
 	}
 	
+	public InstructieList(InstructieList instructieLijst){
+		this.instructieLijst = new LinkedList<Instructie>();
+		for(Instructie i : instructieLijst.getInstructieLijst()) {
+			this.instructieLijst.add(i);
+		}
+	}
+	
 	public Instructie getInstructie(int tijd){
 		return instructieLijst.get(tijd);
 	}

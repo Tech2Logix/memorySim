@@ -23,6 +23,83 @@ public class ToestandMachine {
 		nLeesOpdrachten=0;
 	}
 	
+	public ToestandMachine(ToestandMachine pc){
+		this.ram = pc.getRam();
+		this.alleProcessen = pc.getAlleProcessen();
+		this.processenInRam = pc.getProcessenInRam();
+		this.timer = pc.getTimer();
+		this.nSchrijfOpdrachten = pc.getnSchrijfOpdrachten();
+		this.nLeesOpdrachten = pc.getnLeesOpdrachten();
+	}
+	
+	public void reset() {
+		ram=new RAMEntrie[12];
+		for(int i=0;i<12;i++){
+			ram[i]=new RAMEntrie(); 
+		}
+		alleProcessen = new ArrayList<Proces>();
+		processenInRam = new ArrayList<Proces>();
+		timer=0;
+		nSchrijfOpdrachten=0;
+		nLeesOpdrachten=0;
+	}
+	
+	public RAMEntrie[] getRam() {
+		return ram;
+	}
+
+	public void setRam(RAMEntrie[] ram) {
+		this.ram = ram;
+	}
+
+	public ArrayList<Proces> getAlleProcessen() {
+		return alleProcessen;
+	}
+
+	public void setAlleProcessen(ArrayList<Proces> alleProcessen) {
+		this.alleProcessen = alleProcessen;
+	}
+
+	public ArrayList<Proces> getProcessenInRam() {
+		return processenInRam;
+	}
+
+	public void setProcessenInRam(ArrayList<Proces> processenInRam) {
+		this.processenInRam = processenInRam;
+	}
+
+	public Instructie getHuidigeInstr() {
+		return huidigeInstr;
+	}
+
+	public void setHuidigeInstr(Instructie huidigeInstr) {
+		this.huidigeInstr = huidigeInstr;
+	}
+
+	public int getTimer() {
+		return timer;
+	}
+
+	public void setTimer(int timer) {
+		this.timer = timer;
+	}
+
+	public int getnLeesOpdrachten() {
+		return nLeesOpdrachten;
+	}
+
+	public void setnLeesOpdrachten(int nLeesOpdrachten) {
+		this.nLeesOpdrachten = nLeesOpdrachten;
+	}
+
+	public int getnSchrijfOpdrachten() {
+		return nSchrijfOpdrachten;
+	}
+
+	public void setnSchrijfOpdrachten(int nSchrijfOpdrachten) {
+		this.nSchrijfOpdrachten = nSchrijfOpdrachten;
+	}
+
 	public void doorloopVolgendeInstructie(InstructieList i){ //dit is slechts 1 instructie uitvoeren
 		huidigeInstr = i.getInstructie(timer);
 		timer++;
