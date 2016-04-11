@@ -15,7 +15,6 @@ public class listener_XML1 implements ActionListener {
 	JLabel end;
 	JTextArea aantalGeschrPR;
 	JTextArea aantalGeschrRP;
-
 	globalVar g;
 
 	public listener_XML1(JTextArea timer, JTextArea instructie, JTextArea pageTable, JTextArea realAdress, JLabel end,
@@ -33,24 +32,31 @@ public class listener_XML1 implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		System.out.println("Button 1 activated");
-		// System.out.println(instructies.getInstructieLijst().size());
-		if (g.getPc().getTimer() < g.getInstructies().getInstructieLijst().size()) {
-			g.getPc().doorloopVolgendeInstructie(g.getInstructies());
+		if (g.isFirstRun()) {
 			timer.setText("Timer: \n" + String.valueOf(g.getPc().getTimer()));
-			instructie.setText("Instructie: \n" + g.getPc().getHuidigeInstr().toString());
-			pageTable.setText("Page table: \n" + g.getPc().getAlleProcessen()
-					.get(g.getInstructies().getInstructie(g.getPc().getTimer() - 1).getProcesID()).pageTabletoString());
-			if (g.getPc().getHuidigRealAdres()!=-1){
-				realAdress.setText("real adress: " +g.getPc().getHuidigRealAdres());
-			}else{
-				//niets
-			}
-			aantalGeschrPR.setText("Aantal schrijfopdrachten: \n" + g.getPc().getnSchrijfOpdrachten());
-			aantalGeschrRP.setText("Aantal leesopdrachten: \n" + g.getPc().getnLeesOpdrachten());
+			instructie.setText("Instructie: \n" + g.getInstructies().getInstructie(0).toString());
+			g.setFirstRun(false);
 		} else {
-			end.setText("Instructielijst afgelopen, druk op reset om opnieuw te beginnen.");
+			// System.out.println(instructies.getInstructieLijst().size());
+			if (g.getPc().getTimer() < g.getInstructies().getInstructieLijst().size()) {
+				g.getPc().doorloopVolgendeInstructie(g.getInstructies());
+				timer.setText("Timer: \n" + String.valueOf(g.getPc().getTimer()));
+				instructie.setText("Instructie: \n" + g.getPc().getHuidigeInstr().toString());
+				pageTable.setText("Page table: \n" + g.getPc().getAlleProcessen()
+						.get(g.getInstructies().getInstructie(g.getPc().getTimer() - 1).getProcesID())
+						.pageTabletoString());
+				if (g.getPc().getHuidigRealAdres() != -1) {
+					realAdress.setText("Real adress: \n" + g.getPc().getHuidigRealAdres());
+				} else {
+					// niets... voorlopig??
+				}
+				aantalGeschrPR.setText("Aantal schrijfopdrachten: \n" + g.getPc().getnSchrijfOpdrachten());
+				aantalGeschrRP.setText("Aantal leesopdrachten: \n" + g.getPc().getnLeesOpdrachten());
+			} else {
+				end.setText("Instructielijst afgelopen, druk op reset om opnieuw te beginnen.");
+			}
+			g.getPc().printToestand(g.getInstructies());
 		}
-		g.getPc().printToestand(g.getInstructies());
 	}
 
 }

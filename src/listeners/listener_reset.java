@@ -41,6 +41,7 @@ public class listener_reset implements ActionListener {
 		aantalGeschrPR.setText("Aantal schrijfopdrachten:");
 		aantalGeschrRP.setText("Aantal leesopdrachten:");
 		g.resetPC();
+		g.setFirstRun(true);
 	}
 
 }
