@@ -10,6 +10,7 @@ public class ToestandMachine {
 	private int timer;
 	private int nLeesOpdrachten;
 	private int nSchrijfOpdrachten; 
+	private int huidigRealAdres;
 	
 	public ToestandMachine(){
 		ram=new RAMEntrie[12];
@@ -21,6 +22,7 @@ public class ToestandMachine {
 		timer=0;
 		nSchrijfOpdrachten=0;
 		nLeesOpdrachten=0;
+		huidigRealAdres=-1;
 	}
 	
 	public ToestandMachine(ToestandMachine pc){
@@ -116,6 +118,8 @@ public class ToestandMachine {
 		Proces huidigProces=alleProcessen.get(huidigeInstr.getProcesID());
 		PagetableEntrie huidigePageEntrie=huidigProces.getPagetableEntrie(huidigeInstr.getAdress()/4096);
 		huidigePageEntrie.setModify(true);
+		
+		huidigRealAdres=huidigeInstr.getAdress()%4096 + huidigePageEntrie.getFrameNummer()*4096;
 
 	}
 	
@@ -156,6 +160,8 @@ public class ToestandMachine {
 			//lastacces nog aanpassen
 			huidigProces.getPagetableEntrie(paginaNummer).setLastAcces(timer);
 		}
+		
+		huidigRealAdres=huidigeInstr.getAdress()%4096 + huidigProces.getPagetableEntrie(paginaNummer).getFrameNummer()*4096;
 	}
 	
 	public void start(InstructieList i){
@@ -193,6 +199,8 @@ public class ToestandMachine {
 			}
 		}
 		processenInRam.add(huidigProces);
+		
+		huidigRealAdres=-1;
 	}
 	
 	public void terminate(InstructieList i){
@@ -244,8 +252,18 @@ public class ToestandMachine {
 				k = (k<nOverigeActieveProcessen) ? k : 0; //op die manier beginnen we weer bij 0 als we alle processen al gehad hebben
 			}
 		}
+		
+		huidigRealAdres=-1;
 	}
 	
+	public int getHuidigRealAdres() {
+		return huidigRealAdres;
+	}
+
+	public void setHuidigRealAdres(int huidigRealAdres) {
+		this.huidigRealAdres = huidigRealAdres;
+	}
+
 	public void printToestand(InstructieList il){
 		System.out.println("----------------------------------------------------------------------------------");
 		System.out.println("\ntimer="+timer+"\tschrijf opdrachten: "+nSchrijfOpdrachten+"\tlees opdrachten: "+nLeesOpdrachten);

@@ -16,8 +16,8 @@ public class globalVar {
 	public globalVar() {
 		instructies = new InstructieList();
 		try {
-			String instructieXML = "Instructions_eigenTest.xml";
-			//String instructieXML = "Instructions_30_3.xml";
+			//String instructieXML = "Instructions_eigenTest.xml";
+			String instructieXML = "Instructions_30_3.xml";
 			//String instructieXML = "Instructions_20000_4.xml";
 			File file = new File(instructieXML);
 			JAXBContext jaxbContext = JAXBContext.newInstance(InstructieList.class);

@@ -43,9 +43,9 @@ public class listener_XML2 implements ActionListener {
 			timer.setText("Timer: \n" +String.valueOf(g.getPc().getTimer()));
 			instructie.setText("Instructie: \n" +g.getPc().getHuidigeInstr().toString());
 			pageTable.setText("Page table: \n" + g.getPc().getAlleProcessen().get(g.getInstructies().getInstructie(g.getPc().getTimer()-1).getProcesID()).pageTabletoString());
-			realAdress.setText("TO*DO");
+			realAdress.setText("real adress = TO*DO");
 		} else {
-			System.out.println("is afgelopen dommerik!");
+			System.out.println("afgelopen");
 		}
 
 	}

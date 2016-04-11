@@ -81,7 +81,7 @@ public class GUI extends JFrame {
 
 		/*** InhoudEind ***/
 		inhoudEind = new JPanel();
-		inhoudEind.setBackground(Color.WHITE);
+		inhoudEind.setBackground(Color.white);
 		inhoudEind.setOpaque(true);
 		inhoudEind.setLayout(new BoxLayout(inhoudEind, 1));
 		aantalGeschrPRJ = new JTextArea(aantalGeschrPR);

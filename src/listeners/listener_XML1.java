@@ -40,7 +40,11 @@ public class listener_XML1 implements ActionListener {
 			instructie.setText("Instructie: \n" + g.getPc().getHuidigeInstr().toString());
 			pageTable.setText("Page table: \n" + g.getPc().getAlleProcessen()
 					.get(g.getInstructies().getInstructie(g.getPc().getTimer() - 1).getProcesID()).pageTabletoString());
-			realAdress.setText("TO*DO");
+			if (g.getPc().getHuidigRealAdres()!=-1){
+				realAdress.setText("real adress: " +g.getPc().getHuidigRealAdres());
+			}else{
+				//niets
+			}
 			aantalGeschrPR.setText("Aantal schrijfopdrachten: \n" + g.getPc().getnSchrijfOpdrachten());
 			aantalGeschrRP.setText("Aantal leesopdrachten: \n" + g.getPc().getnLeesOpdrachten());
 		} else {
