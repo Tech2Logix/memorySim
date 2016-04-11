@@ -1,6 +1,7 @@
 package Scheduling;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class ToestandMachine {
 	private RAMEntrie [] ram;
@@ -25,6 +26,7 @@ public class ToestandMachine {
 		huidigRealAdres=-1;
 	}
 	
+
 	public ToestandMachine(ToestandMachine pc){
 		this.ram = pc.getRam();
 		this.alleProcessen = pc.getAlleProcessen();
@@ -228,7 +230,7 @@ public class ToestandMachine {
 			for (int j=0; j<nOverigeActieveProcessen; j++){
 				int teller=nNieuwePlaatsenPerProces;
 				while(teller>0){
-					if(ram[loper].getProcesID()==oudProcesID){
+					if(ram[loper].getProcesID()==oudProcesID){ //hier gaat'm RIP
 						//eventueel +write:
 						if(ram[loper].getPageEntrie()!=-1){
 							if(ram[loper].getPagetableEntrie().isModify()){
@@ -279,4 +281,22 @@ public class ToestandMachine {
 		System.out.println("\n  PAGETABLE van proces "+procesID+"\n  ---------");
 		p.printPageTables();
 	}
+	
+	public String printRam() {
+		String ram = "";
+		for(int i=0;i<12;i++){
+			ram += i+"\t";
+			ram += this.ram[i].toString();
+			ram += "\n";
+		}
+		return ram;
+	}
+	@Override
+	public String toString() {
+		return "ToestandMachine [ram=" + Arrays.toString(ram) + ",\n alleProcessen=" + alleProcessen + ",\n processenInRam="
+				+ processenInRam + ",\n huidigeInstr=" + huidigeInstr + ",\n timer=" + timer + ",\n nLeesOpdrachten="
+				+ nLeesOpdrachten + ",\n nSchrijfOpdrachten=" + nSchrijfOpdrachten + ",\n huidigRealAdres="
+				+ huidigRealAdres + "]";
+	}
+
 }

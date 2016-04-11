@@ -6,6 +6,7 @@ public class RAMEntrie {
 	
 	public RAMEntrie(){
 	}
+	
 	public RAMEntrie(Proces p, int i){
 		proces=p;
 		pageEntrie=i;
@@ -59,8 +60,16 @@ public class RAMEntrie {
 			System.out.println("proces: " + proces.getProcesNummer()+"\tpage entrie: "+pageEntrie);
 		}
 		else{
-			System.out.println("niet toegwezen aan een proces");
+			System.out.println("niet toegewezen aan een proces");
 		}
+	}
+	
+	@Override
+	public String toString() {
+		if(proces != null) {
+			return "proces: " + proces.getProcesNummer()+"\tpage entrie: "+pageEntrie;
+		} else
+			return "niet toegewezen aan een proces";
 	}
 	
 }

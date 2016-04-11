@@ -10,6 +10,7 @@ import model.globalVar;
 public class listener_XML2 implements ActionListener {
 	JTextArea timer;
 	JTextArea instructie;
+	JTextArea ram;
 	JTextArea pageTable;
 	JTextArea realAdress;
 	JLabel end;
@@ -18,9 +19,10 @@ public class listener_XML2 implements ActionListener {
 	
 	globalVar g;
 	
-	public listener_XML2(JTextArea timer, JTextArea instructie, JTextArea pageTable, JTextArea realAdress, JLabel end, JTextArea aantalGeschrPR, JTextArea aantalGeschrRP, globalVar g) {
+	public listener_XML2(JTextArea timer, JTextArea instructie, JTextArea ram, JTextArea pageTable, JTextArea realAdress, JLabel end, JTextArea aantalGeschrPR, JTextArea aantalGeschrRP, globalVar g) {
 		this.timer = timer;
 		this.instructie = instructie;
+		this.ram = ram;
 		this.pageTable = pageTable;
 		this.realAdress = realAdress;
 		this.end = end;
@@ -32,16 +34,18 @@ public class listener_XML2 implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		System.out.println("Button 2 activated");
+		g.setFirstRun(false);
 		if(g.getPc().getTimer() < g.getInstructies().getInstructieLijst().size()) {
 			for(int i=g .getPc().getTimer(); i<g.getInstructies().getInstructieLijst().size(); i++) {
 				g.getPc().doorloopVolgendeInstructie(g.getInstructies());
 			}
-			end.setText("Instructielijst afgelopen, druk op reset om opnieuw te beginnen.");
+			end.setText("Instructielijst afgelopen!");
 			aantalGeschrPR.setText("Aantal schrijfopdrachten: \n" +g.getPc().getnSchrijfOpdrachten());
 			aantalGeschrRP.setText("Aantal leesopdrachten: \n" +g.getPc().getnLeesOpdrachten());
 		
 			timer.setText("Timer: \n" +String.valueOf(g.getPc().getTimer()));
 			instructie.setText("Instructie: \n" +g.getPc().getHuidigeInstr().toString());
+			ram.setText("Ram: \n" + g.getPc().printRam());
 			pageTable.setText("Page table: \n" + g.getPc().getAlleProcessen().get(g.getInstructies().getInstructie(g.getPc().getTimer()-1).getProcesID()).pageTabletoString());
 			realAdress.setText("Real adress: \n"+ g.getPc().getHuidigRealAdres());
 		} else {

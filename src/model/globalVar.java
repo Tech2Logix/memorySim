@@ -12,12 +12,13 @@ import Scheduling.ToestandMachine;
 public class globalVar {
 	InstructieList instructies;
 	ToestandMachine pc;
+	String instructieXML;
 	boolean firstRun;
 	
 	public globalVar() {
 		instructies = new InstructieList();
 		try {
-			String instructieXML = "Instructions_eigenTest.xml";
+			instructieXML = "Instructions_eigenTest.xml";
 			File file = new File(instructieXML);
 			JAXBContext jaxbContext = JAXBContext.newInstance(InstructieList.class);
 			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
@@ -36,6 +37,7 @@ public class globalVar {
 	}
 	
 	public void setNieuweInstructielijst(String instructieXML) {
+		this.instructieXML = instructieXML;
 		instructies = new InstructieList();
 		try {
 			File file = new File(instructieXML);
@@ -70,5 +72,17 @@ public class globalVar {
 	
 	public void resetPC() {
 		this.pc = new ToestandMachine();
+		instructies = new InstructieList();
+		try {
+			instructieXML = "Instructions_eigenTest.xml";
+			File file = new File(instructieXML);
+			JAXBContext jaxbContext = JAXBContext.newInstance(InstructieList.class);
+			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+			instructies = (InstructieList) jaxbUnmarshaller.unmarshal(file);
+		} catch (JAXBException e) {
+			e.printStackTrace();
+		}
+		firstRun = true;
+		System.out.println(pc.toString());
 	}
 }

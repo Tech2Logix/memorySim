@@ -32,6 +32,7 @@ public class GUI extends JFrame {
 
 	private String timer = "Timer:";
 	private String instructie = "Instructie:";
+	private String ram = "Ram:";
 	private String pageTable = "Page table:";
 	private String realAdress = "Real adress:";
 	private String end = "";
@@ -41,6 +42,7 @@ public class GUI extends JFrame {
 
 	private JTextArea timerJ;
 	private JTextArea instructieJ;
+	private JTextArea ramJ;
 	private JTextArea pageTableJ;
 	private JTextArea realAdressJ;
 	private JLabel endJ;
@@ -72,16 +74,20 @@ public class GUI extends JFrame {
 		instructieJ = new JTextArea(instructie);
 		pageTableJ = new JTextArea(pageTable);
 		realAdressJ = new JTextArea(realAdress);
+		ramJ = new JTextArea(ram);
 
 		inhoud.add(timerJ);
-		timerJ.setPreferredSize(new Dimension(650, 75));
+		timerJ.setPreferredSize(new Dimension(600, 50));
 		inhoud.add(instructieJ);
-		instructieJ.setPreferredSize(new Dimension(650, 75));
+		instructieJ.setPreferredSize(new Dimension(600, 50));
+		inhoud.add(ramJ);
+		ramJ.setPreferredSize(new Dimension(600, 250));
 		inhoud.add(pageTableJ);
-		pageTableJ.setPreferredSize(new Dimension(650, 400));
+		pageTableJ.setPreferredSize(new Dimension(600, 250));
 		inhoud.add(realAdressJ);
-		realAdressJ.setPreferredSize(new Dimension(650, 75));
-		inhoud.setPreferredSize(new Dimension(650, 525));
+		realAdressJ.setPreferredSize(new Dimension(600, 50));
+		
+		inhoud.setPreferredSize(new Dimension(600, 650));
 		inhoud.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
 		panel.add(inhoud, BorderLayout.CENTER);
 
@@ -91,12 +97,12 @@ public class GUI extends JFrame {
 		inhoudEind.setOpaque(true);
 		inhoudEind.setLayout(new BoxLayout(inhoudEind, 1));
 		aantalGeschrPRJ = new JTextArea(aantalGeschrPR);
-		aantalGeschrPRJ.setPreferredSize(new Dimension(350, 50));
+		aantalGeschrPRJ.setPreferredSize(new Dimension(200, 50));
 		aantalGeschrRPJ = new JTextArea(aantalGeschrRP);
-		aantalGeschrRPJ.setPreferredSize(new Dimension(350, 50));
+		aantalGeschrRPJ.setPreferredSize(new Dimension(200, 50));
 		inhoudEind.add(aantalGeschrPRJ);
 		inhoudEind.add(aantalGeschrRPJ);
-		inhoudEind.setPreferredSize(new Dimension(350, 525));
+		inhoudEind.setPreferredSize(new Dimension(200, 650));
 		inhoudEind.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
 		panel.add(inhoudEind, BorderLayout.EAST);
 
@@ -105,27 +111,35 @@ public class GUI extends JFrame {
 		endJ = new JLabel(end);
 		knoppenPanel.setLayout(new FlowLayout(3, 1, 0));
 		xml1 = new JButton("Voer enkele instructie uit");
-		xml1.addActionListener(new listener_XML1(timerJ, instructieJ, pageTableJ, realAdressJ, endJ, aantalGeschrPRJ,
+		xml1.addActionListener(new listener_XML1(timerJ, instructieJ, ramJ, pageTableJ, realAdressJ, endJ, aantalGeschrPRJ,
 				aantalGeschrRPJ, g));
 
 		xml2 = new JButton("Voer alle instructies uit");
-		xml2.addActionListener(new listener_XML2(timerJ, instructieJ, pageTableJ, realAdressJ, endJ, aantalGeschrPRJ,
+		xml2.addActionListener(new listener_XML2(timerJ, instructieJ, ramJ, pageTableJ, realAdressJ, endJ, aantalGeschrPRJ,
 				aantalGeschrRPJ, g));
 		reset = new JButton("Reset");
-		reset.addActionListener(new listener_reset(timerJ, instructieJ, pageTableJ, realAdressJ, endJ, aantalGeschrPRJ,
+		reset.addActionListener(new listener_reset(timerJ, instructieJ, ramJ, pageTableJ, realAdressJ, endJ, aantalGeschrPRJ,
 				aantalGeschrRPJ, g));
 		knoppenPanel.add(xml1);
 		knoppenPanel.add(xml2);
 		knoppenPanel.add(reset);
 
 		cb = new JComboBox<String>();
+		cb.addItem("Instructions_eigenTest.xml");
+		cb.addItem("Instructions_30_3.xml");
 		cb.addItem("Instructions_20000_4.xml");
 		cb.addItem("Instructions_20000_20.xml");
-		cb.addItem("Instructions_30_3.xml");
-		cb.addItem("Instructions_eigenTest.xml");
 		cb.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				g.setNieuweInstructielijst(cb.getSelectedItem().toString());
+				timerJ.setText("Timer:");
+				instructieJ.setText("Instructie:");
+				ramJ.setText("Ram:");
+				pageTableJ.setText("Page table:");
+				realAdressJ.setText("Real adress:");
+				endJ.setText("");
+				aantalGeschrPRJ.setText("Aantal schrijfopdrachten:");
+				aantalGeschrRPJ.setText("Aantal leesopdrachten:");
 				g.resetPC();
 			}
 		});
