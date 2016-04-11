@@ -32,14 +32,11 @@ public class globalVar {
 		firstRun = true;
 	}
 
-	public boolean isFirstRun() {
-		return firstRun;
-	}
 	
-	public void setNieuweInstructielijst(String instructieXML) {
-		this.instructieXML = instructieXML;
+	public globalVar(String instructieXML) {
 		instructies = new InstructieList();
 		try {
+			this.instructieXML = instructieXML;
 			File file = new File(instructieXML);
 			JAXBContext jaxbContext = JAXBContext.newInstance(InstructieList.class);
 			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
@@ -47,7 +44,18 @@ public class globalVar {
 		} catch (JAXBException e) {
 			e.printStackTrace();
 		}
-		System.out.println(instructieXML+" dataset ingelezen");
+		System.out.println("data ingelezen");
+		
+		pc = new ToestandMachine();
+		firstRun = true;
+	}
+	
+	public boolean isFirstRun() {
+		return firstRun;
+	}
+	
+	public void setNieuweInstructielijst(String instructieXML) {
+		this.instructieXML = instructieXML;
 	}
 	
 	public void setFirstRun(boolean firstRun) {
@@ -72,9 +80,9 @@ public class globalVar {
 	
 	public void resetPC() {
 		this.pc = new ToestandMachine();
+		pc.reset();
 		instructies = new InstructieList();
 		try {
-			instructieXML = "Instructions_eigenTest.xml";
 			File file = new File(instructieXML);
 			JAXBContext jaxbContext = JAXBContext.newInstance(InstructieList.class);
 			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
@@ -83,6 +91,7 @@ public class globalVar {
 			e.printStackTrace();
 		}
 		firstRun = true;
+		System.out.println(instructieXML+" dataset ingelezen");
 		System.out.println(pc.toString());
 	}
 }

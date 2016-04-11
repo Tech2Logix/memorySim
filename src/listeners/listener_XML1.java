@@ -54,7 +54,7 @@ public class listener_XML1 implements ActionListener {
 				}
 				aantalGeschrPR.setText("Aantal schrijfopdrachten: \n" + g.getPc().getnSchrijfOpdrachten());
 				aantalGeschrRP.setText("Aantal leesopdrachten: \n" + g.getPc().getnLeesOpdrachten());
-				g.getPc().printToestand(g.getInstructies());
+				//g.getPc().printToestand(g.getInstructies());
 			} else {
 				end.setText("Instructielijst afgelopen!");
 				System.out.println("afgelopen");

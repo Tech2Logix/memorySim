@@ -28,6 +28,11 @@ public class InstructieList {
 		instructieLijst = i;
 	}
 	
+	@Override
+	public String toString() {
+		return "InstructieList [instructieLijst=" + instructieLijst + "]";
+	}
+
 	public LinkedList<Instructie> getInstructieLijst(){
 		return instructieLijst;
 	}
