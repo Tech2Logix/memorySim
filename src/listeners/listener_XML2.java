@@ -43,7 +43,7 @@ public class listener_XML2 implements ActionListener {
 			timer.setText("Timer: \n" +String.valueOf(g.getPc().getTimer()));
 			instructie.setText("Instructie: \n" +g.getPc().getHuidigeInstr().toString());
 			pageTable.setText("Page table: \n" + g.getPc().getAlleProcessen().get(g.getInstructies().getInstructie(g.getPc().getTimer()-1).getProcesID()).pageTabletoString());
-			realAdress.setText("real adress = TO*DO");
+			realAdress.setText("real adress = "+ g.getPc().getHuidigRealAdres());
 		} else {
 			System.out.println("afgelopen");
 		}
