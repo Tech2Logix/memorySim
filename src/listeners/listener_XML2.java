@@ -2,10 +2,9 @@ package listeners;
 
 import java.awt.event.*;
 
+import javax.swing.JLabel;
 import javax.swing.JTextArea;
 
-import Scheduling.InstructieList;
-import Scheduling.ToestandMachine;
 import model.globalVar;
 
 public class listener_XML2 implements ActionListener {
@@ -13,13 +12,13 @@ public class listener_XML2 implements ActionListener {
 	JTextArea instructie;
 	JTextArea pageTable;
 	JTextArea realAdress;
-	JTextArea end;
+	JLabel end;
 	JTextArea aantalGeschrPR;
 	JTextArea aantalGeschrRP;
 	
 	globalVar g;
 	
-	public listener_XML2(JTextArea timer, JTextArea instructie, JTextArea pageTable, JTextArea realAdress, JTextArea end, JTextArea aantalGeschrPR, JTextArea aantalGeschrRP, globalVar g) {
+	public listener_XML2(JTextArea timer, JTextArea instructie, JTextArea pageTable, JTextArea realAdress, JLabel end, JTextArea aantalGeschrPR, JTextArea aantalGeschrRP, globalVar g) {
 		this.timer = timer;
 		this.instructie = instructie;
 		this.pageTable = pageTable;
@@ -34,15 +33,16 @@ public class listener_XML2 implements ActionListener {
 	public void actionPerformed(ActionEvent arg0) {
 		System.out.println("Button 2 activated");
 		if(g.getPc().getTimer() < g.getInstructies().getInstructieLijst().size()) {
-			for(int i=g.getPc().getTimer(); i<g.getInstructies().getInstructieLijst().size(); i++) {
+			for(int i=g .getPc().getTimer(); i<g.getInstructies().getInstructieLijst().size(); i++) {
 				g.getPc().doorloopVolgendeInstructie(g.getInstructies());
 			}
 			end.setText("Instructielijst afgelopen, druk op reset om opnieuw te beginnen.");
-			aantalGeschrPR.setText("TO*DO");
-			aantalGeschrRP.setText("TO*DO");
-			timer.setText(String.valueOf(g.getPc().getTimer()));
-			instructie.setText(g.getPc().getHuidigeInstr().toString());
-			pageTable.setText("TO*DO");
+			aantalGeschrPR.setText("Aantal schrijfopdrachten: \n" +g.getPc().getnSchrijfOpdrachten());
+			aantalGeschrRP.setText("Aantal leesopdrachten: \n" +g.getPc().getnLeesOpdrachten());
+		
+			timer.setText("Timer: \n" +String.valueOf(g.getPc().getTimer()));
+			instructie.setText("Instructie: \n" +g.getPc().getHuidigeInstr().toString());
+			pageTable.setText("Page table: \n" + g.getPc().getAlleProcessen().get(g.getInstructies().getInstructie(g.getPc().getTimer()-1).getProcesID()).pageTabletoString());
 			realAdress.setText("TO*DO");
 		} else {
 			System.out.println("is afgelopen dommerik!");

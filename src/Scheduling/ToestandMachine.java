@@ -260,6 +260,5 @@ public class ToestandMachine {
 		Proces p=alleProcessen.get(procesID);
 		System.out.println("\n  PAGETABLE van proces "+procesID+"\n  ---------");
 		p.printPageTables();
-		
 	}
 }

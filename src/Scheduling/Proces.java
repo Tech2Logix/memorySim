@@ -47,4 +47,14 @@ public class Proces {
 		}
 	}
 	
+	public String pageTabletoString() {
+		String pageTable = "";
+		for (int i=0;i<16;i++){
+			pageTable += i+"\t";
+			pageTable += pagetable[i].toString();
+			pageTable += "\n";
+		}
+		return pageTable;
+	}
+	
 }

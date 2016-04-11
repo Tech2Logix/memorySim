@@ -2,10 +2,9 @@ package listeners;
 
 import java.awt.event.*;
 
+import javax.swing.JLabel;
 import javax.swing.JTextArea;
 
-import Scheduling.InstructieList;
-import Scheduling.ToestandMachine;
 import model.globalVar;
 
 public class listener_reset implements ActionListener {
@@ -13,13 +12,13 @@ public class listener_reset implements ActionListener {
 	JTextArea instructie;
 	JTextArea pageTable;
 	JTextArea realAdress;
-	JTextArea end;
+	JLabel end;
 	JTextArea aantalGeschrPR;
 	JTextArea aantalGeschrRP;
 	
 	globalVar g;
 	
-	public listener_reset(JTextArea timer, JTextArea instructie, JTextArea pageTable, JTextArea realAdress, JTextArea end, JTextArea aantalGeschrPR, JTextArea aantalGeschrRP, globalVar g) {
+	public listener_reset(JTextArea timer, JTextArea instructie, JTextArea pageTable, JTextArea realAdress, JLabel end, JTextArea aantalGeschrPR, JTextArea aantalGeschrRP, globalVar g) {
 		this.timer = timer;
 		this.instructie = instructie;
 		this.pageTable = pageTable;
@@ -34,13 +33,13 @@ public class listener_reset implements ActionListener {
 	public void actionPerformed(ActionEvent arg0) {
 		System.out.println("Button reset activated");
 
-		timer.setText("Begin");
-		instructie.setText("Begin");
-		pageTable.setText("Begin");
-		realAdress.setText("Begin");
+		timer.setText("Timer:");
+		instructie.setText("Instructie:");
+		pageTable.setText("Page table:");
+		realAdress.setText("Real adress:");
 		end.setText("");
-		aantalGeschrPR.setText("");
-		aantalGeschrRP.setText("");
+		aantalGeschrPR.setText("Aantal schrijfopdrachten:");
+		aantalGeschrRP.setText("Aantal leesopdrachten:");
 		g.resetPC();
 	}
 

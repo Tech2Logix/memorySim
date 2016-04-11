@@ -71,4 +71,8 @@ public class PagetableEntrie {
 		System.out.println("present: "+present+"\tmodify: "+modify+"\tframe nummer: "+frameNummer+"\tlast acces:"+lastAcces);
 	}
 	
+	public String toString(){
+		return ("present: "+present+"\tmodify: "+modify+"\tframe nummer: "+frameNummer+"\tlast acces:"+lastAcces);
+	}
+	
 }

@@ -3,20 +3,14 @@ package model;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.io.File;
-
+import java.awt.FlowLayout;
 import javax.swing.*;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
-
-import Scheduling.InstructieList;
-import Scheduling.ToestandMachine;
 import listeners.listener_XML1;
 import listeners.listener_XML2;
 import listeners.listener_reset;
 
 public class GUI extends JFrame {
+	private static final long serialVersionUID = 6842220968403776582L;
 	private JFrame main;
 	private JPanel title;
 	private JPanel panel;
@@ -30,30 +24,26 @@ public class GUI extends JFrame {
 
 	private JLabel lblNewLabel;
 
-	private String timer = "begin";
-	private String instructie = "begin";
-	private String pageTable = "begin";
-	private String realAdress = "begin";
+	private String timer = "Timer:";
+	private String instructie = "Instructie:";
+	private String pageTable = "Page table:";
+	private String realAdress = "Real adress:";
 	private String end = "";
 	
-	private String aantalGeschrPR = "";
-	private String aantalGeschrRP = "";
+	private String aantalGeschrPR = "Aantal schrijfopdrachten:";
+	private String aantalGeschrRP = "Aantal leesopdrachten:";
 
 	private JTextArea timerJ;
 	private JTextArea instructieJ;
 	private JTextArea pageTableJ;
 	private JTextArea realAdressJ;
-	private JTextArea endJ;
+	private JLabel endJ;
 
 	private JTextArea aantalGeschrPRJ;
 	private JTextArea aantalGeschrRPJ;
 
 	public GUI() {
 		globalVar g = new globalVar();
-
-		// 8
-		// pc.doorloopVolgendeInstructie(instructies);
-		// pc.printToestand(instructies);
 
 		/*** Initiatie ***/
 		main = new JFrame();
@@ -68,7 +58,7 @@ public class GUI extends JFrame {
 
 		/*** Inhoud ***/
 		inhoud = new JPanel();
-		inhoud.setBackground(Color.GRAY);
+		inhoud.setBackground(Color.WHITE);
 		inhoud.setOpaque(true);
 		inhoud.setLayout(new BoxLayout(inhoud, 1));
 
@@ -76,31 +66,38 @@ public class GUI extends JFrame {
 		instructieJ = new JTextArea(instructie);
 		pageTableJ = new JTextArea(pageTable);
 		realAdressJ = new JTextArea(realAdress);
-		endJ = new JTextArea(end);
 
 		inhoud.add(timerJ);
+		timerJ.setPreferredSize(new Dimension(600, 50));
 		inhoud.add(instructieJ);
+		instructieJ.setPreferredSize(new Dimension(600, 50));
 		inhoud.add(pageTableJ);
+		pageTableJ.setPreferredSize(new Dimension(600, 300));
 		inhoud.add(realAdressJ);
-		inhoud.add(endJ);
-		inhoud.setPreferredSize(new Dimension(250, 500));
+		realAdressJ.setPreferredSize(new Dimension(600, 100));
+		inhoud.setPreferredSize(new Dimension(600, 500));
+		inhoud.setBorder(BorderFactory.createEmptyBorder(15,15,15,15));
 		panel.add(inhoud, BorderLayout.CENTER);
 
 		/*** InhoudEind ***/
 		inhoudEind = new JPanel();
-		inhoudEind.setBackground(Color.DARK_GRAY);
+		inhoudEind.setBackground(Color.WHITE);
 		inhoudEind.setOpaque(true);
 		inhoudEind.setLayout(new BoxLayout(inhoudEind, 1));
 		aantalGeschrPRJ = new JTextArea(aantalGeschrPR);
+		aantalGeschrPRJ.setPreferredSize(new Dimension(200, 50));
 		aantalGeschrRPJ = new JTextArea(aantalGeschrRP);
+		aantalGeschrRPJ.setPreferredSize(new Dimension(200, 50));
 		inhoudEind.add(aantalGeschrPRJ);
 		inhoudEind.add(aantalGeschrRPJ);
-		inhoudEind.setPreferredSize(new Dimension(250, 500));
+		inhoudEind.setPreferredSize(new Dimension(200, 500));
+		inhoudEind.setBorder(BorderFactory.createEmptyBorder(15,15,15,15));
 		panel.add(inhoudEind, BorderLayout.EAST);
 
 		/*** knoppenPanel ***/
 		knoppenPanel = new JPanel();
-		knoppenPanel.setLayout(new BoxLayout(knoppenPanel, 1));
+		endJ = new JLabel(end);
+		knoppenPanel.setLayout(new FlowLayout(3,1,0));
 		xml1 = new JButton("Voer enkele instructie uit");
 		xml1.addActionListener(new listener_XML1(timerJ, instructieJ, pageTableJ, realAdressJ, endJ, aantalGeschrPRJ, aantalGeschrRPJ, g));
 
@@ -111,12 +108,15 @@ public class GUI extends JFrame {
 		knoppenPanel.add(xml1);
 		knoppenPanel.add(xml2);
 		knoppenPanel.add(reset);
-		panel.add(knoppenPanel, BorderLayout.WEST);
+		knoppenPanel.add(endJ);		
+		endJ.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
+		knoppenPanel.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
+		panel.add(knoppenPanel, BorderLayout.NORTH);
 
 		/*** Main ***/
 		main.setLayout(new BorderLayout());
 		main.add(panel, BorderLayout.CENTER);
-		main.add(title, BorderLayout.NORTH);
+		main.add(title, BorderLayout.SOUTH);
 		main.pack();
 		main.setVisible(true);
 		main.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
