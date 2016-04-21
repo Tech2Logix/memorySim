@@ -79,7 +79,6 @@ public class globalVar {
 	}
 	
 	public void resetPC() {
-		this.pc = new ToestandMachine();
 		pc.reset();
 		instructies = new InstructieList();
 		try {
@@ -92,6 +91,6 @@ public class globalVar {
 		}
 		firstRun = true;
 		System.out.println(instructieXML+" dataset ingelezen");
-		System.out.println(pc.toString());
+		//System.out.println(pc.toString());
 	}
 }

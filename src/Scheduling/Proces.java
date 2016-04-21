@@ -5,6 +5,10 @@ public class Proces {
 	private PagetableEntrie[] pagetable;
 	private int procesNummer;
 	
+	public void reset() {
+		/*** TODO ***/
+	}
+	
 	public int getProcesNummer() {
 		return procesNummer;
 	}

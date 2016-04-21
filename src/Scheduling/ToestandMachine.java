@@ -38,10 +38,16 @@ public class ToestandMachine {
 	}
 
 	public void reset() {
+		System.out.println("++PRE++");
+		for(RAMEntrie r : ram) System.out.println(r.toString());
 		ram = new RAMEntrie[12];
 		for (int i = 0; i < 12; i++) {
 			ram[i] = new RAMEntrie();
 		}
+		System.out.println("++POST++");
+		for(RAMEntrie r : ram) System.out.println(r.toString());
+		
+		
 		alleProcessen = new ArrayList<Proces>();
 		processenInRam = new ArrayList<Proces>();
 		timer = 0;
@@ -228,8 +234,6 @@ public class ToestandMachine {
 
 	public void terminate(InstructieList i) {
 		int nNieuwePlaatsenPerProces;
-		
-		System.out.println("*******" + processenInRam.size());
 		int oudProcesID = i.getInstructie(timer - 1).getProcesID();
 		Proces pr = processenInRam.get(0);// de beginwaarde speelt geen rol
 		for (Proces p : processenInRam) {
@@ -240,7 +244,6 @@ public class ToestandMachine {
 		processenInRam.remove(pr);
 
 		int loper = 0, k = 0, nOverigeActieveProcessen = processenInRam.size();
-		System.out.println("hallo!" + nOverigeActieveProcessen);
 		if (nOverigeActieveProcessen == 0) {
 			// hier moet niets gebeuren want het ram kan niet doorgegeven
 			// worden?
@@ -262,7 +265,7 @@ public class ToestandMachine {
 				System.out.println(teller);
 				while (teller > 0) {
 					/*** DEBUG ***/
-					System.out.println("loper: " + loper + "grootte ram:" + ram.length);
+					System.out.println("loper: " + loper + "        grootte ram:" + ram.length);
 					System.out.println("process ID: " + ram[loper].getProcesID());
 					/*** DEBUG ***/
 					if (ram[loper].getProcesID() == oudProcesID) { // hier
