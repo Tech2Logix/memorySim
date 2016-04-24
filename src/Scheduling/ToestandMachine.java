@@ -154,7 +154,7 @@ public class ToestandMachine {
 											// niet uit wat dit is --> besproken
 											// in klas (21/4)
 			for (int j = 0; j < 12; j++) {
-				if ((ram[j].getProces().getProcesNummer() == huidigProcesID) && (ram[j].getLastAcces() < oudsteTotNu)) {
+				if ((ram[j].getProces() == huidigProces) && (ram[j].getLastAcces() < oudsteTotNu)) {
 					teVervangenFrameNummer = j;
 					oudsteTotNu = ram[j].getLastAcces();
 				}
