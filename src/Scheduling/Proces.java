@@ -1,12 +1,13 @@
 package Scheduling;
 
 public class Proces {
-	static int nVoorgaandeProcessen=0;
+	private static int nVoorgaandeProcessen=0;
+
 	private PagetableEntrie[] pagetable;
 	private int procesNummer;
 	
 	public void reset() {
-		/*** TODO ***/
+		Proces.nVoorgaandeProcessen = 0;
 	}
 	
 	public int getProcesNummer() {
@@ -59,6 +60,14 @@ public class Proces {
 			pageTable += "\n";
 		}
 		return pageTable;
+	}
+	
+	public int getnVoorgaandeProcessen() {
+		return nVoorgaandeProcessen;
+	}
+
+	public void setnVoorgaandeProcessen(int nVoorgaandeProcessen) {
+		Proces.nVoorgaandeProcessen = nVoorgaandeProcessen;
 	}
 	
 }

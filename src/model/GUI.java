@@ -9,9 +9,9 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
-import listeners.listener_XML1;
-import listeners.listener_XML2;
-import listeners.listener_reset;
+import listeners.Listener_XML1;
+import listeners.Listener_XML2;
+import listeners.Listener_Reset;
 
 public class GUI extends JFrame {
 	private static final long serialVersionUID = 6842220968403776582L;
@@ -51,7 +51,7 @@ public class GUI extends JFrame {
 	private JTextArea aantalGeschrRPJ;
 
 	public GUI() {
-		globalVar g = new globalVar();
+		GlobalVar g = new GlobalVar();
 
 		/*** Initiatie ***/
 		main = new JFrame();
@@ -111,14 +111,14 @@ public class GUI extends JFrame {
 		endJ = new JLabel(end);
 		knoppenPanel.setLayout(new FlowLayout(3, 1, 0));
 		xml1 = new JButton("Voer enkele instructie uit");
-		xml1.addActionListener(new listener_XML1(timerJ, instructieJ, ramJ, pageTableJ, realAdressJ, endJ, aantalGeschrPRJ,
+		xml1.addActionListener(new Listener_XML1(timerJ, instructieJ, ramJ, pageTableJ, realAdressJ, endJ, aantalGeschrPRJ,
 				aantalGeschrRPJ, g));
 
 		xml2 = new JButton("Voer alle instructies uit");
-		xml2.addActionListener(new listener_XML2(timerJ, instructieJ, ramJ, pageTableJ, realAdressJ, endJ, aantalGeschrPRJ,
+		xml2.addActionListener(new Listener_XML2(timerJ, instructieJ, ramJ, pageTableJ, realAdressJ, endJ, aantalGeschrPRJ,
 				aantalGeschrRPJ, g));
 		reset = new JButton("Reset");
-		reset.addActionListener(new listener_reset(timerJ, instructieJ, ramJ, pageTableJ, realAdressJ, endJ, aantalGeschrPRJ,
+		reset.addActionListener(new Listener_Reset(timerJ, instructieJ, ramJ, pageTableJ, realAdressJ, endJ, aantalGeschrPRJ,
 				aantalGeschrRPJ, g));
 		knoppenPanel.add(xml1);
 		knoppenPanel.add(xml2);

@@ -5,9 +5,9 @@ import java.awt.event.*;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
 
-import model.globalVar;
+import model.GlobalVar;
 
-public class listener_reset implements ActionListener {
+public class Listener_Reset implements ActionListener {
 	JTextArea timer;
 	JTextArea instructie;
 	JTextArea ram;
@@ -17,9 +17,9 @@ public class listener_reset implements ActionListener {
 	JTextArea aantalGeschrPR;
 	JTextArea aantalGeschrRP;
 	
-	globalVar g;
+	GlobalVar g;
 	
-	public listener_reset(JTextArea timer, JTextArea instructie, JTextArea ram, JTextArea pageTable, JTextArea realAdress, JLabel end, JTextArea aantalGeschrPR, JTextArea aantalGeschrRP, globalVar g) {
+	public Listener_Reset(JTextArea timer, JTextArea instructie, JTextArea ram, JTextArea pageTable, JTextArea realAdress, JLabel end, JTextArea aantalGeschrPR, JTextArea aantalGeschrRP, GlobalVar g) {
 		this.timer = timer;
 		this.instructie = instructie;
 		this.ram = ram;

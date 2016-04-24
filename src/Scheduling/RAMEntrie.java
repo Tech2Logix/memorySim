@@ -12,6 +12,11 @@ public class RAMEntrie {
 		pageEntrie=i;
 	}
 	
+	public void reset() {
+		proces = new Proces();
+		pageEntrie = 0;
+	}
+	
 	public Proces getProces() {
 		return proces;
 	}

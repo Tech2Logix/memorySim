@@ -9,13 +9,13 @@ import javax.xml.bind.Unmarshaller;
 import Scheduling.InstructieList;
 import Scheduling.ToestandMachine;
 
-public class globalVar {
+public class GlobalVar {
 	InstructieList instructies;
 	ToestandMachine pc;
 	String instructieXML;
 	boolean firstRun;
 	
-	public globalVar() {
+	public GlobalVar() {
 		instructies = new InstructieList();
 		try {
 			instructieXML = "Instructions_eigenTest.xml";
@@ -33,7 +33,7 @@ public class globalVar {
 	}
 
 	
-	public globalVar(String instructieXML) {
+	public GlobalVar(String instructieXML) {
 		instructies = new InstructieList();
 		try {
 			this.instructieXML = instructieXML;
