@@ -35,8 +35,8 @@ public class Listener_XML2 implements ActionListener {
 	public void actionPerformed(ActionEvent arg0) {
 		System.out.println("Button 2 activated");
 		g.setFirstRun(false);
-		if(g.getPc().getTimer() < g.getInstructies().getInstructieLijst().size()) {
-			for(int i=g .getPc().getTimer(); i<g.getInstructies().getInstructieLijst().size(); i++) {
+		if(g.getPc().getTimer() <= g.getInstructies().getInstructieLijst().size()) {
+			for(int i=g .getPc().getTimer(); i<=g.getInstructies().getInstructieLijst().size(); i++) {
 				g.getPc().doorloopVolgendeInstructie(g.getInstructies());
 			}
 			end.setText("Instructielijst afgelopen!");

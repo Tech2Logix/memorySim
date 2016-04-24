@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class ToestandMachine {
-	private RAMEntrie[] ram;
+	private RAMEntry[] ram;
 	private ArrayList<Proces> alleProcessen; // om statistieken over processen
 												// die uit ram zijn bij te
 												// kunnen houden
@@ -16,9 +16,9 @@ public class ToestandMachine {
 	private int huidigRealAdres;
 
 	public ToestandMachine() {
-		ram = new RAMEntrie[12];
+		ram = new RAMEntry[12];
 		for (int i = 0; i < 12; i++) {
-			ram[i] = new RAMEntrie();
+			ram[i] = new RAMEntry();
 		}
 		alleProcessen = new ArrayList<Proces>();
 		processenInRam = new ArrayList<Proces>();
@@ -42,7 +42,7 @@ public class ToestandMachine {
 			alleProcessen.get(0).reset();
 
 		for (int i = 0; i < 12; i++) {
-			ram[i] = new RAMEntrie();
+			ram[i] = new RAMEntry();
 		}
 
 		alleProcessen = new ArrayList<Proces>();
@@ -52,11 +52,11 @@ public class ToestandMachine {
 		nLeesOpdrachten = 0;
 	}
 
-	public RAMEntrie[] getRam() {
+	public RAMEntry[] getRam() {
 		return ram;
 	}
 
-	public void setRam(RAMEntrie[] ram) {
+	public void setRam(RAMEntry[] ram) {
 		this.ram = ram;
 	}
 
@@ -135,9 +135,9 @@ public class ToestandMachine {
 
 	public void write() {
 		Proces huidigProces = alleProcessen.get(huidigeInstr.getProcesID());
-		PagetableEntrie huidigePageEntrie = huidigProces.getPagetableEntrie(huidigeInstr.getAdress() / 4096);
-		huidigePageEntrie.setModify(true);
-		huidigRealAdres = huidigeInstr.getAdress() % 4096 + huidigePageEntrie.getFrameNummer() * 4096;
+		PagetableEntry huidigePageentry = huidigProces.getPagetableentry(huidigeInstr.getAdress() / 4096);
+		huidigePageentry.setModify(true);
+		huidigRealAdres = huidigeInstr.getAdress() % 4096 + huidigePageentry.getFrameNummer() * 4096;
 	}
 
 	public void read() {
@@ -161,35 +161,35 @@ public class ToestandMachine {
 			}
 
 			// page table aanpassen:
-			if (ram[teVervangenFrameNummer].getPageEntrie() != -1) {
-				// -1 is een niet toegewezen entrie
-				PagetableEntrie teVervangenPageTable = ram[teVervangenFrameNummer].getPagetableEntrie();
+			if (ram[teVervangenFrameNummer].getPageentry() != -1) {
+				// -1 is een niet toegewezen entry
+				PagetableEntry teVervangenPageTable = ram[teVervangenFrameNummer].getPagetableentry();
 				if (teVervangenPageTable.isModify()) {
 					nSchrijfOpdrachten++;
 				}
 				teVervangenPageTable.doeUitRam();
 			}
 
-			huidigProces.getPagetableEntrie(paginaNummer).doeInRam(teVervangenFrameNummer, timer);
+			huidigProces.getPagetableentry(paginaNummer).doeInRam(teVervangenFrameNummer, timer);
 
 			// ramtable aanpassen:
 			nLeesOpdrachten++;
-			ram[teVervangenFrameNummer].voegEntrieToe(huidigProces, paginaNummer);
+			ram[teVervangenFrameNummer].voegentryToe(huidigProces, paginaNummer);
 
 		} else {
 			// lastacces nog aanpassen
-			huidigProces.getPagetableEntrie(paginaNummer).setLastAcces(timer);
+			huidigProces.getPagetableentry(paginaNummer).setLastAcces(timer);
 		}
 
 		huidigRealAdres = huidigeInstr.getAdress() % 4096
-				+ huidigProces.getPagetableEntrie(paginaNummer).getFrameNummer() * 4096;
+				+ huidigProces.getPagetableentry(paginaNummer).getFrameNummer() * 4096;
 	}
 
 	public void start() {
-		int nodigeEntries, toegewezenEntries, oudsteTotNu;
+		int nodigeentrys, toegewezenentrys, oudsteTotNu;
 		//huidigeInstr = i.getInstructie(timer); ->dit stond er nog in tot 24-04-16, maar dit is toch fout??? timer is ondertussen al geïncrementeerd
 		Proces huidigProces = new Proces();
-		RAMEntrie oudsteFrame = new RAMEntrie();
+		RAMEntry oudsteFrame = new RAMEntry();
 		// dit heeft geen betekenis, is enkel zodat geen error komt door
 		// oningevulde variabele
 		alleProcessen.add(huidigProces);
@@ -197,22 +197,22 @@ public class ToestandMachine {
 		if (processenInRam.size() == 4) {
 			// proces uit ram halen->komt alleen voor in tweede voorbeelddata
 		} else if (processenInRam.size() == 0) {
-			for (RAMEntrie r : ram) {
+			for (RAMEntry r : ram) {
 				r.vulMet(huidigProces);
 			}
 		} else {
-			nodigeEntries = 12 / (processenInRam.size() + 1);
-			toegewezenEntries = 0;
-			while (nodigeEntries > toegewezenEntries) {
+			nodigeentrys = 12 / (processenInRam.size() + 1);
+			toegewezenentrys = 0;
+			while (nodigeentrys > toegewezenentrys) {
 				for (Proces pr : processenInRam) {
 					oudsteTotNu = timer;
-					for (RAMEntrie ra : ram) {
+					for (RAMEntry ra : ram) {
 						if ((ra.getProces() == pr) && (ra.getLastAcces() < oudsteTotNu)) {
 							oudsteTotNu = ra.getLastAcces();
 							oudsteFrame = ra;
 						}
 					}
-					toegewezenEntries++;
+					toegewezenentrys++;
 					oudsteFrame.setUitRamEnVoegToe(huidigProces);
 				}
 			}
@@ -258,12 +258,12 @@ public class ToestandMachine {
 																	// gaat'm
 																	// RIP
 						// eventueel +write:
-						if (ram[loper].getPageEntrie() != -1) {
-							if (ram[loper].getPagetableEntrie().isModify()) {
+						if (ram[loper].getPageentry() != -1) {
+							if (ram[loper].getPagetableentry().isModify()) {
 								nSchrijfOpdrachten++;
 							}
 							// oudepagetables aanpassen
-							ram[loper].getPagetableEntrie().doeUitRam();
+							ram[loper].getPagetableentry().doeUitRam();
 						}
 						// ram vullen
 						ram[loper].vulMet(processenInRam.get(j));

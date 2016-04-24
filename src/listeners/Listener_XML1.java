@@ -39,7 +39,7 @@ public class Listener_XML1 implements ActionListener {
 			instructie.setText("Instructie: \n" + g.getInstructies().getInstructie(0).toString());
 			g.setFirstRun(false);
 		} else {
-			if (g.getPc().getTimer() < g.getInstructies().getInstructieLijst().size()) {
+			if (g.getPc().getTimer() <= g.getInstructies().getInstructieLijst().size()) {
 				g.getPc().doorloopVolgendeInstructie(g.getInstructies());
 				timer.setText("Timer: \n" + String.valueOf(g.getPc().getTimer()));
 				instructie.setText("Instructie: \n" + g.getPc().getHuidigeInstr().toString());

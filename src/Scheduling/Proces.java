@@ -3,7 +3,7 @@ package Scheduling;
 public class Proces {
 	private static int nVoorgaandeProcessen=0;
 
-	private PagetableEntrie[] pagetable;
+	private PagetableEntry[] pagetable;
 	private int procesNummer;
 	
 	public void reset() {
@@ -19,9 +19,9 @@ public class Proces {
 	}
 
 	public Proces(){
-		pagetable = new PagetableEntrie[16];
+		pagetable = new PagetableEntry[16];
 		for (int i=0;i<16;i++){
-			pagetable[i]=new PagetableEntrie();
+			pagetable[i]=new PagetableEntry();
 		}
 
 		procesNummer=nVoorgaandeProcessen;
@@ -29,14 +29,14 @@ public class Proces {
 	}
 	
 	
-	public PagetableEntrie getPagetableEntrie(int i){
+	public PagetableEntry getPagetableentry(int i){
 		return pagetable[i];
 	}
-	public PagetableEntrie[] getPagetable() {
+	public PagetableEntry[] getPagetable() {
 		return pagetable;
 	}
 
-	public void setPagetable(PagetableEntrie[] pagetable) {
+	public void setPagetable(PagetableEntry[] pagetable) {
 		this.pagetable = pagetable;
 	}
 

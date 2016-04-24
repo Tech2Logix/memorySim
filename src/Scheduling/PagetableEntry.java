@@ -1,10 +1,10 @@
 package Scheduling;
 
-public class PagetableEntrie {
+public class PagetableEntry {
 	private boolean present, modify;
 	private int lastAcces, frameNummer;
 	
-	public PagetableEntrie(){
+	public PagetableEntry(){
 		present=false;
 		modify=false;
 		lastAcces=-1;
