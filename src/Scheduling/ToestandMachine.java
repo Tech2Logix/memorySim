@@ -108,12 +108,13 @@ public class ToestandMachine {
 		this.nSchrijfOpdrachten = nSchrijfOpdrachten;
 	}
 
-	public void doorloopVolgendeInstructie(InstructieList i) { // dit is slechts
-																// 1 instructie
-																// uitvoeren
-		huidigeInstr = i.getInstructie(timer);
-		timer++;
-
+	public void doorloopVolgendeInstructie(InstructieList i) {
+		if (timer < i.getInstructieLijst().size()) {
+			System.out.println("DEBUG: " + timer + " - " + i.getInstructie(timer).toString());
+			huidigeInstr = i.getInstructie(timer);
+			timer++;
+		}
+		
 		switch (huidigeInstr.getOperatie()) {
 		case "Write":
 			read();
@@ -161,10 +162,11 @@ public class ToestandMachine {
 			}
 
 			// page table aanpassen:
-			if (ram[teVervangenFrameNummer].getPageentry() != -1) {
+			if (ram[teVervangenFrameNummer].getPageEntry() != -1) {
 				// -1 is een niet toegewezen entry
 				PagetableEntry teVervangenPageTable = ram[teVervangenFrameNummer].getPagetableentry();
 				if (teVervangenPageTable.isModify()) {
+					System.out.println("NU DOEN WE SCHRIJF ++");
 					nSchrijfOpdrachten++;
 				}
 				teVervangenPageTable.doeUitRam();
@@ -174,6 +176,7 @@ public class ToestandMachine {
 
 			// ramtable aanpassen:
 			nLeesOpdrachten++;
+			System.out.println("NU DOEN WE LEES ++");
 			ram[teVervangenFrameNummer].voegentryToe(huidigProces, paginaNummer);
 
 		} else {
@@ -187,7 +190,9 @@ public class ToestandMachine {
 
 	public void start() {
 		int nodigeentrys, toegewezenentrys, oudsteTotNu;
-		//huidigeInstr = i.getInstructie(timer); ->dit stond er nog in tot 24-04-16, maar dit is toch fout??? timer is ondertussen al geïncrementeerd
+		// huidigeInstr = i.getInstructie(timer); ->dit stond er nog in tot
+		// 24-04-16, maar dit is toch fout??? timer is ondertussen al
+		// geïncrementeerd
 		Proces huidigProces = new Proces();
 		RAMEntry oudsteFrame = new RAMEntry();
 		// dit heeft geen betekenis, is enkel zodat geen error komt door
@@ -223,22 +228,19 @@ public class ToestandMachine {
 	}
 
 	public void terminate() {
+		System.out.println("Nu doen we terminate!");
 		int nNieuwePlaatsenPerProces;
 		int oudProcesID = huidigeInstr.getProcesID();
-		Proces pr = processenInRam.get(0);// de beginwaarde speelt geen rol
+		Proces pr = null;
 		for (Proces p : processenInRam) {
 			if (p.getProcesNummer() == oudProcesID) {
 				pr = p;
 			}
 		}
-		processenInRam.remove(pr);
+		if(pr != null) processenInRam.remove(pr);
 
 		int loper = 0, k = 0, nOverigeActieveProcessen = processenInRam.size();
-		if (nOverigeActieveProcessen == 0) {
-			// hier moet niets gebeuren want het ram kan niet doorgegeven
-			// worden?
-
-		} else {
+		if (nOverigeActieveProcessen != 0) {
 			switch (nOverigeActieveProcessen) {
 			case 1:
 				nNieuwePlaatsenPerProces = 6;
@@ -252,14 +254,12 @@ public class ToestandMachine {
 			}
 			for (int j = 0; j < nOverigeActieveProcessen; j++) {
 				int teller = nNieuwePlaatsenPerProces;
-				//System.out.println(teller);
+				// System.out.println(teller);
 				while (teller > 0) {
-					if (ram[loper].getProcesID() == oudProcesID) { // hier
-																	// gaat'm
-																	// RIP
-						// eventueel +write:
-						if (ram[loper].getPageentry() != -1) {
+					if (ram[loper].getProcesID() == oudProcesID) {
+						if (ram[loper].getPageEntry() != -1) {
 							if (ram[loper].getPagetableentry().isModify()) {
+								System.out.println("NU DOEN WE SCHRIJF ++");
 								nSchrijfOpdrachten++;
 							}
 							// oudepagetables aanpassen
@@ -271,6 +271,19 @@ public class ToestandMachine {
 					}
 					loper++;
 				}
+			}
+		} else {
+			for(int a=0; a<12; a++) {
+				if (ram[a].getPageEntry() != -1) {
+					if (ram[a].getPagetableentry().isModify()) {
+						System.out.println("NU DOEN WE SCHRIJF ++");
+						nSchrijfOpdrachten++;
+					}
+					// oudepagetables aanpassen
+					ram[a].getPagetableentry().doeUitRam();
+					//System.out.println("Proberen uit ram te kicken " + a);
+				}
+				ram[a].reset();
 			}
 		}
 

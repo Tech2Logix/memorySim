@@ -13,7 +13,6 @@ public class GlobalVar {
 	InstructieList instructies;
 	ToestandMachine pc;
 	String instructieXML;
-	boolean firstRun;
 	
 	public GlobalVar() {
 		instructies = new InstructieList();
@@ -26,10 +25,8 @@ public class GlobalVar {
 		} catch (JAXBException e) {
 			e.printStackTrace();
 		}
-		System.out.println("data ingelezen");
-		
+		System.out.println("\nDataset("+instructieXML+") ingelezen \n");
 		pc = new ToestandMachine();
-		firstRun = true;
 	}
 
 	
@@ -44,24 +41,15 @@ public class GlobalVar {
 		} catch (JAXBException e) {
 			e.printStackTrace();
 		}
-		System.out.println("data ingelezen");
-		
+		System.out.println("\nDataset("+instructieXML+") ingelezen \n");
 		pc = new ToestandMachine();
-		firstRun = true;
 	}
 	
-	public boolean isFirstRun() {
-		return firstRun;
-	}
 	
 	public void setNieuweInstructielijst(String instructieXML) {
 		this.instructieXML = instructieXML;
 	}
 	
-	public void setFirstRun(boolean firstRun) {
-		this.firstRun = firstRun;
-	}
-
 	public InstructieList getInstructies() {
 		return instructies;
 	}
@@ -89,7 +77,6 @@ public class GlobalVar {
 		} catch (JAXBException e) {
 			e.printStackTrace();
 		}
-		firstRun = true;
 		System.out.println(instructieXML+" dataset ingelezen");
 		//System.out.println(pc.toString());
 	}

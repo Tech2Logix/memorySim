@@ -2,19 +2,19 @@ package Scheduling;
 
 public class RAMEntry {
 	private Proces proces;
-	private int pageentry ;
+	private int pageEntry ;
 	
 	public RAMEntry(){
 	}
 	
 	public RAMEntry(Proces p, int i){
 		proces=p;
-		pageentry=i;
+		pageEntry=i;
 	}
 	
 	public void reset() {
-		proces = new Proces();
-		pageentry = 0;
+		proces = null;
+		pageEntry = -1;
 	}
 	
 	public Proces getProces() {
@@ -25,44 +25,44 @@ public class RAMEntry {
 		return proces.getProcesNummer();
 	}
 
-	public int getPageentry() {
-		return pageentry;
+	public int getPageEntry() {
+		return pageEntry;
 	}
 	
 	public int getLastAcces(){
-		if(pageentry == -1){
+		if(pageEntry == -1){
 			return -1;//zo zal een lege entry zeker voorrang krijgen op een andere
 		}
-		else return proces.getPagetableentry(pageentry).getLastAcces();
+		else return proces.getPagetableentry(pageEntry).getLastAcces();
 	}
 	public PagetableEntry getPagetableentry(){
-		return proces.getPagetableentry(pageentry);
+		return proces.getPagetableentry(pageEntry);
 	}
 	
 	public void setUitRamEnVoegToe(Proces p){
 		//OUD WISSEN:
-		//boolean schrijven = proces.getPagetableentry(pageentry).setUitRam();
+		//boolean schrijven = proces.getPagetableentry(pageEntry).setUitRam();
 		//if(schrijven){
 		//	proces.addSchrijven();
 		//}
 		
 		//NIEUW TOEVOEGEN:
 		proces=p;
-		pageentry=-1;
+		pageEntry=-1;
 	}
 	
 	public void vulMet(Proces p){
 		proces=p;
-		pageentry=-1;
+		pageEntry=-1;
 	}
 	public void voegentryToe(Proces p, int nr){
 		proces=p;
-		pageentry=nr;
+		pageEntry=nr;
 	}
 	
 	public void print(){
 		if (proces != null){
-			System.out.println("proces: " + proces.getProcesNummer()+"\tpage entry: "+pageentry);
+			System.out.println("proces: " + proces.getProcesNummer()+"\tpage entry: "+pageEntry);
 		}
 		else{
 			System.out.println("niet toegewezen aan een proces");
@@ -71,10 +71,14 @@ public class RAMEntry {
 	
 	@Override
 	public String toString() {
+		String ret = null;
 		if(proces != null) {
-			return "proces: " + proces.getProcesNummer()+"\tpage entry: "+pageentry;
+			if(pageEntry == -1) ret= "proces: " + proces.getProcesNummer();
+			else ret = "proces: " + proces.getProcesNummer()+"\tpage entry: "+pageEntry;
 		} else
-			return "niet toegewezen aan een proces";
+			ret = "niet toegewezen aan een proces";
+		
+		return ret;
 	}
 	
 }

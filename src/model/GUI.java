@@ -77,17 +77,17 @@ public class GUI extends JFrame {
 		ramJ = new JTextArea(ram);
 
 		inhoud.add(timerJ);
-		timerJ.setPreferredSize(new Dimension(600, 50));
+		timerJ.setPreferredSize(new Dimension(600, 75));
 		inhoud.add(instructieJ);
-		instructieJ.setPreferredSize(new Dimension(600, 50));
+		instructieJ.setPreferredSize(new Dimension(600, 75));
 		inhoud.add(ramJ);
 		ramJ.setPreferredSize(new Dimension(600, 250));
 		inhoud.add(pageTableJ);
 		pageTableJ.setPreferredSize(new Dimension(600, 250));
 		inhoud.add(realAdressJ);
-		realAdressJ.setPreferredSize(new Dimension(600, 50));
+		realAdressJ.setPreferredSize(new Dimension(600, 75));
 		
-		inhoud.setPreferredSize(new Dimension(600, 650));
+		inhoud.setPreferredSize(new Dimension(600, 725));
 		inhoud.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
 		panel.add(inhoud, BorderLayout.CENTER);
 
@@ -102,7 +102,7 @@ public class GUI extends JFrame {
 		aantalGeschrRPJ.setPreferredSize(new Dimension(200, 50));
 		inhoudEind.add(aantalGeschrPRJ);
 		inhoudEind.add(aantalGeschrRPJ);
-		inhoudEind.setPreferredSize(new Dimension(200, 650));
+		inhoudEind.setPreferredSize(new Dimension(200, 725));
 		inhoudEind.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
 		panel.add(inhoudEind, BorderLayout.EAST);
 
