@@ -116,31 +116,31 @@ public class ToestandMachine {
 
 		switch (huidigeInstr.getOperatie()) {
 		case "Write":
-			read(i);
-			write(i);
+			read();
+			write();
 			break;
 		case "Read":
-			read(i);
+			read();
 			break;
 		case "Start":
-			start(i);
+			start();
 			break;
 		case "Terminate":
-			terminate(i);
+			terminate();
 			break;
 		default:
 			break;
 		}
 	}
 
-	public void write(InstructieList i) {
+	public void write() {
 		Proces huidigProces = alleProcessen.get(huidigeInstr.getProcesID());
 		PagetableEntrie huidigePageEntrie = huidigProces.getPagetableEntrie(huidigeInstr.getAdress() / 4096);
 		huidigePageEntrie.setModify(true);
 		huidigRealAdres = huidigeInstr.getAdress() % 4096 + huidigePageEntrie.getFrameNummer() * 4096;
 	}
 
-	public void read(InstructieList i) {
+	public void read() {
 		int paginaNummer, huidigProcesID, oudsteTotNu;
 		Proces huidigProces;
 		huidigProces = alleProcessen.get(huidigeInstr.getProcesID());
@@ -185,9 +185,9 @@ public class ToestandMachine {
 				+ huidigProces.getPagetableEntrie(paginaNummer).getFrameNummer() * 4096;
 	}
 
-	public void start(InstructieList i) {
+	public void start() {
 		int nodigeEntries, toegewezenEntries, oudsteTotNu;
-		huidigeInstr = i.getInstructie(timer);
+		//huidigeInstr = i.getInstructie(timer); ->dit stond er nog in tot 24-04-16, maar dit is toch fout??? timer is ondertussen al geïncrementeerd
 		Proces huidigProces = new Proces();
 		RAMEntrie oudsteFrame = new RAMEntrie();
 		// dit heeft geen betekenis, is enkel zodat geen error komt door
@@ -222,9 +222,9 @@ public class ToestandMachine {
 		huidigRealAdres = -1;
 	}
 
-	public void terminate(InstructieList i) {
+	public void terminate() {
 		int nNieuwePlaatsenPerProces;
-		int oudProcesID = i.getInstructie(timer - 1).getProcesID();
+		int oudProcesID = huidigeInstr.getProcesID();
 		Proces pr = processenInRam.get(0);// de beginwaarde speelt geen rol
 		for (Proces p : processenInRam) {
 			if (p.getProcesNummer() == oudProcesID) {
