@@ -110,7 +110,7 @@ public class ToestandMachine {
 
 	public void doorloopVolgendeInstructie(InstructieList i) {
 		if (timer < i.getInstructieLijst().size()) {
-			System.out.println("DEBUG: " + timer + " - " + i.getInstructie(timer).toString());
+			//System.out.println("DEBUG: " + timer + " - " + i.getInstructie(timer).toString());
 			huidigeInstr = i.getInstructie(timer);
 			timer++;
 		}
@@ -164,7 +164,7 @@ public class ToestandMachine {
 				// -1 is een niet toegewezen entry
 				PagetableEntry teVervangenPageTable = ram[teVervangenFrameNummer].getPagetableentry();
 				if (teVervangenPageTable.isModify()) {
-					System.out.println("NU DOEN WE SCHRIJF ++");
+					//System.out.println("NU DOEN WE SCHRIJF ++");
 					nSchrijfOpdrachten++;
 				}
 				teVervangenPageTable.doeUitRam();
@@ -174,7 +174,7 @@ public class ToestandMachine {
 
 			// ramtable aanpassen:
 			nLeesOpdrachten++;
-			System.out.println("NU DOEN WE LEES ++");
+			//System.out.println("NU DOEN WE LEES ++");
 			ram[teVervangenFrameNummer].voegentryToe(huidigProces, paginaNummer);
 
 		} else {
@@ -188,13 +188,9 @@ public class ToestandMachine {
 
 	public void start() {
 		int nodigeentrys, toegewezenentrys, oudsteTotNu;
-		// huidigeInstr = i.getInstructie(timer); ->dit stond er nog in tot
-		// 24-04-16, maar dit is toch fout??? timer is ondertussen al
-		// geïncrementeerd
+		
 		Proces huidigProces = new Proces();
 		RAMEntry oudsteFrame = new RAMEntry();
-		// dit heeft geen betekenis, is enkel zodat geen error komt door
-		// oningevulde variabele
 		alleProcessen.add(huidigProces);
 
 		if (processenInRam.size() == 4) {
@@ -226,7 +222,7 @@ public class ToestandMachine {
 	}
 
 	public void terminate() {
-		System.out.println("Nu doen we terminate!");
+		//System.out.println("Nu doen we terminate!");
 		int nNieuwePlaatsenPerProces;
 		int oudProcesID = huidigeInstr.getProcesID();
 		Proces pr = null;
@@ -257,7 +253,7 @@ public class ToestandMachine {
 					if (ram[loper].getProcesID() == oudProcesID) {
 						if (ram[loper].getPageEntry() != -1) {
 							if (ram[loper].getPagetableentry().isModify()) {
-								System.out.println("NU DOEN WE SCHRIJF ++");
+								//System.out.println("NU DOEN WE SCHRIJF ++");
 								nSchrijfOpdrachten++;
 							}
 							// oudepagetables aanpassen
@@ -274,7 +270,7 @@ public class ToestandMachine {
 			for(int a=0; a<12; a++) {
 				if (ram[a].getPageEntry() != -1) {
 					if (ram[a].getPagetableentry().isModify()) {
-						System.out.println("NU DOEN WE SCHRIJF ++");
+						//System.out.println("NU DOEN WE SCHRIJF ++");
 						nSchrijfOpdrachten++;
 					}
 					// oudepagetables aanpassen
@@ -284,7 +280,6 @@ public class ToestandMachine {
 				ram[a].reset();
 			}
 		}
-
 		huidigRealAdres = -1;
 	}
 

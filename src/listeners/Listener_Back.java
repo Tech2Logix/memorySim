@@ -7,7 +7,7 @@ import javax.swing.JTextArea;
 
 import model.GlobalVar;
 
-public class Listener_alleInstructies implements ActionListener {
+public class Listener_Back implements ActionListener {
 	JTextArea timer;
 	JTextArea instructie;
 	JTextArea ram;
@@ -19,7 +19,7 @@ public class Listener_alleInstructies implements ActionListener {
 
 	GlobalVar g;
 
-	public Listener_alleInstructies(JTextArea timer, JTextArea instructie, JTextArea ram, JTextArea pageTable,
+	public Listener_Back(JTextArea timer, JTextArea instructie, JTextArea ram, JTextArea pageTable,
 			JTextArea realAdress, JLabel end, JTextArea aantalGeschrPR, JTextArea aantalGeschrRP, GlobalVar g) {
 		this.timer = timer;
 		this.instructie = instructie;
@@ -34,11 +34,13 @@ public class Listener_alleInstructies implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		if (g.getPc().getTimer() < g.getInstructies().getInstructieLijst().size()) {
-			for (int i = g.getPc().getTimer(); i < g.getInstructies().getInstructieLijst().size(); i++) {
+		if (g.getPc().getTimer() <= g.getInstructies().getInstructieLijst().size() && g.getPc().getTimer() > 1) {
+			int eindwaarde = g.getPc().getTimer()-1;
+			g.resetPC();
+			for (int i = 0;  i < eindwaarde; i++) {
 				g.getPc().doorloopVolgendeInstructie(g.getInstructies());
 			}
-			end.setText("Instructielijst afgelopen!");
+			end.setText(" ");
 			aantalGeschrPR.setText("Aantal schrijfopdrachten: \n" + g.getPc().getnSchrijfOpdrachten());
 			aantalGeschrRP.setText("Aantal leesopdrachten: \n" + g.getPc().getnLeesOpdrachten());
 
@@ -53,7 +55,7 @@ public class Listener_alleInstructies implements ActionListener {
 				realAdress.setText("Real adress: \n");
 			}
 		} else {
-			System.out.println("afgelopen");
+			System.out.println("kan niet verder terug");
 		}
 
 	}

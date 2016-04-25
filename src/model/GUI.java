@@ -12,6 +12,7 @@ import javax.swing.*;
 import listeners.Listener_enkeleInstructie;
 import listeners.Listener_alleInstructies;
 import listeners.Listener_deelInstructies;
+import listeners.Listener_Back;
 import listeners.Listener_Reset;
 
 public class GUI extends JFrame {
@@ -27,6 +28,7 @@ public class GUI extends JFrame {
 	private JButton alleI;
 	private JButton deelI;
 	private JButton reset;
+	private JButton backB;
 
 	private JComboBox<String> cb;
 
@@ -79,17 +81,17 @@ public class GUI extends JFrame {
 		ramJ = new JTextArea(ram);
 
 		inhoud.add(timerJ);
-		timerJ.setPreferredSize(new Dimension(600, 75));
+		timerJ.setPreferredSize(new Dimension(675, 75));
 		inhoud.add(instructieJ);
-		instructieJ.setPreferredSize(new Dimension(600, 75));
+		instructieJ.setPreferredSize(new Dimension(675, 75));
 		inhoud.add(ramJ);
-		ramJ.setPreferredSize(new Dimension(600, 250));
+		ramJ.setPreferredSize(new Dimension(675, 250));
 		inhoud.add(pageTableJ);
-		pageTableJ.setPreferredSize(new Dimension(600, 250));
+		pageTableJ.setPreferredSize(new Dimension(675, 250));
 		inhoud.add(realAdressJ);
-		realAdressJ.setPreferredSize(new Dimension(600, 75));
+		realAdressJ.setPreferredSize(new Dimension(675, 75));
 		
-		inhoud.setPreferredSize(new Dimension(600, 725));
+		inhoud.setPreferredSize(new Dimension(675, 725));
 		inhoud.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
 		panel.add(inhoud, BorderLayout.CENTER);
 
@@ -99,12 +101,12 @@ public class GUI extends JFrame {
 		inhoudEind.setOpaque(true);
 		inhoudEind.setLayout(new BoxLayout(inhoudEind, 1));
 		aantalGeschrPRJ = new JTextArea(aantalGeschrPR);
-		aantalGeschrPRJ.setPreferredSize(new Dimension(200, 50));
+		aantalGeschrPRJ.setPreferredSize(new Dimension(225, 50));
 		aantalGeschrRPJ = new JTextArea(aantalGeschrRP);
-		aantalGeschrRPJ.setPreferredSize(new Dimension(200, 50));
+		aantalGeschrRPJ.setPreferredSize(new Dimension(225, 50));
 		inhoudEind.add(aantalGeschrPRJ);
 		inhoudEind.add(aantalGeschrRPJ);
-		inhoudEind.setPreferredSize(new Dimension(200, 725));
+		inhoudEind.setPreferredSize(new Dimension(225, 725));
 		inhoudEind.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
 		panel.add(inhoudEind, BorderLayout.EAST);
 
@@ -122,13 +124,16 @@ public class GUI extends JFrame {
 		deelI = new JButton("10%");
 		deelI.addActionListener(new Listener_deelInstructies(timerJ, instructieJ, ramJ, pageTableJ, realAdressJ, endJ, aantalGeschrPRJ,
 				aantalGeschrRPJ, g));
-		
+		backB = new JButton("Back");
+		backB.addActionListener(new Listener_Back(timerJ, instructieJ, ramJ, pageTableJ, realAdressJ, endJ, aantalGeschrPRJ,
+				aantalGeschrRPJ, g));
 		reset = new JButton("Reset");
 		reset.addActionListener(new Listener_Reset(timerJ, instructieJ, ramJ, pageTableJ, realAdressJ, endJ, aantalGeschrPRJ,
 				aantalGeschrRPJ, g));
 		knoppenPanel.add(enkeleI);
 		knoppenPanel.add(alleI);
 		knoppenPanel.add(deelI);
+		knoppenPanel.add(backB);
 		knoppenPanel.add(reset);
 
 		cb = new JComboBox<String>();

@@ -40,11 +40,10 @@ public class Listener_deelInstructies implements ActionListener {
 			for (int i = g.getPc().getTimer();  i < eindwaarde && i < g.getInstructies().getInstructieLijst().size(); i++) {
 				g.getPc().doorloopVolgendeInstructie(g.getInstructies());
 			}
-			end.setText("Instructielijst afgelopen!");
 			aantalGeschrPR.setText("Aantal schrijfopdrachten: \n" + g.getPc().getnSchrijfOpdrachten());
 			aantalGeschrRP.setText("Aantal leesopdrachten: \n" + g.getPc().getnLeesOpdrachten());
 
-			timer.setText("Timer: \n" + String.valueOf(g.getPc().getTimer()));
+			timer.setText("Timer: \n" + String.valueOf(g.getPc().getTimer()-1));
 			instructie.setText("Instructie: \n" + g.getPc().getHuidigeInstr().toString());
 			ram.setText("Ram: \n" + g.getPc().printRam());
 			pageTable.setText("Page table: \n" + g.getPc().getAlleProcessen()
@@ -55,6 +54,7 @@ public class Listener_deelInstructies implements ActionListener {
 				realAdress.setText("Real adress: \n");
 			}
 		} else {
+			end.setText("Instructielijst afgelopen!");
 			System.out.println("afgelopen");
 		}
 
