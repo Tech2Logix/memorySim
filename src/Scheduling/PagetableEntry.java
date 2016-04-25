@@ -72,7 +72,11 @@ public class PagetableEntry {
 	}
 	
 	public String toString(){
-		return ("present: "+present+"\tmodify: "+modify+"\tframe nummer: "+frameNummer+"\tlast acces:"+lastAcces);
+		String frameN = ""+frameNummer;
+		if (frameNummer == -1){
+			frameN ="/";
+		}
+		return ("present: "+present+"\tmodify: "+modify+"\tframe nummer: "+frameN+"\tlast acces:"+lastAcces);
 	}
 	
 }
