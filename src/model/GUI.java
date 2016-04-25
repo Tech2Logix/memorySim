@@ -137,7 +137,7 @@ public class GUI extends JFrame {
 		knoppenPanel.add(reset);
 
 		cb = new JComboBox<String>();
-		cb.addItem("Instructions_eigenTest.xml");
+//		cb.addItem("Instructions_eigenTest.xml");
 		cb.addItem("Instructions_30_3.xml");
 		cb.addItem("Instructions_20000_4.xml");
 		cb.addItem("Instructions_20000_20.xml");
@@ -152,7 +152,7 @@ public class GUI extends JFrame {
 				endJ.setText("");
 				aantalGeschrPRJ.setText("Aantal schrijfopdrachten:");
 				aantalGeschrRPJ.setText("Aantal leesopdrachten:");
-				g.resetPC();
+				g.resetPC(true);
 			}
 		});
 		cb.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));

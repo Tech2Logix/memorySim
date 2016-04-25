@@ -36,7 +36,7 @@ public class Listener_Back implements ActionListener {
 	public void actionPerformed(ActionEvent arg0) {
 		if (g.getPc().getTimer() <= g.getInstructies().getInstructieLijst().size() && g.getPc().getTimer() > 1) {
 			int eindwaarde = g.getPc().getTimer()-1;
-			g.resetPC();
+			g.resetPC(false);
 			for (int i = 0;  i < eindwaarde; i++) {
 				g.getPc().doorloopVolgendeInstructie(g.getInstructies());
 			}

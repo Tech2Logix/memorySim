@@ -17,7 +17,7 @@ public class GlobalVar {
 	public GlobalVar() {
 		instructies = new InstructieList();
 		try {
-			instructieXML = "Instructions_eigenTest.xml";
+			instructieXML = "Instructions_30_3.xml";
 			File file = new File(instructieXML);
 			JAXBContext jaxbContext = JAXBContext.newInstance(InstructieList.class);
 			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
@@ -66,7 +66,7 @@ public class GlobalVar {
 		this.pc = pc;
 	}
 	
-	public void resetPC() {
+	public void resetPC(boolean syso) {
 		pc.reset();
 		instructies = new InstructieList();
 		try {
@@ -77,7 +77,7 @@ public class GlobalVar {
 		} catch (JAXBException e) {
 			e.printStackTrace();
 		}
-		System.out.println(instructieXML+" dataset ingelezen");
+		if(syso) System.out.println(instructieXML+" dataset ingelezen");
 		//System.out.println(pc.toString());
 	}
 }
