@@ -7,7 +7,7 @@ import javax.swing.JTextArea;
 
 import model.GlobalVar;
 
-public class Listener_XML2 implements ActionListener {
+public class Listener_deelInstructies implements ActionListener {
 	JTextArea timer;
 	JTextArea instructie;
 	JTextArea ram;
@@ -19,7 +19,7 @@ public class Listener_XML2 implements ActionListener {
 
 	GlobalVar g;
 
-	public Listener_XML2(JTextArea timer, JTextArea instructie, JTextArea ram, JTextArea pageTable,
+	public Listener_deelInstructies(JTextArea timer, JTextArea instructie, JTextArea ram, JTextArea pageTable,
 			JTextArea realAdress, JLabel end, JTextArea aantalGeschrPR, JTextArea aantalGeschrRP, GlobalVar g) {
 		this.timer = timer;
 		this.instructie = instructie;
@@ -35,7 +35,9 @@ public class Listener_XML2 implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		if (g.getPc().getTimer() < g.getInstructies().getInstructieLijst().size()) {
-			for (int i = g.getPc().getTimer(); i < g.getInstructies().getInstructieLijst().size(); i++) {
+			int eindwaarde = (int) Math.ceil(g.getPc().getTimer()+((double) g.getInstructies().getInstructieLijst().size()/10));
+			//System.out.println(eindwaarde);
+			for (int i = g.getPc().getTimer();  i < eindwaarde && i < g.getInstructies().getInstructieLijst().size(); i++) {
 				g.getPc().doorloopVolgendeInstructie(g.getInstructies());
 			}
 			end.setText("Instructielijst afgelopen!");

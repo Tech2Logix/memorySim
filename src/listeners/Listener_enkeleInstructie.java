@@ -7,7 +7,7 @@ import javax.swing.JTextArea;
 
 import model.GlobalVar;
 
-public class Listener_XML1 implements ActionListener {
+public class Listener_enkeleInstructie implements ActionListener {
 	JTextArea timer;
 	JTextArea instructie;
 	JTextArea ram;
@@ -18,7 +18,7 @@ public class Listener_XML1 implements ActionListener {
 	JTextArea aantalGeschrRP;
 	GlobalVar g;
 
-	public Listener_XML1(JTextArea timer, JTextArea instructie, JTextArea ram, JTextArea pageTable,
+	public Listener_enkeleInstructie(JTextArea timer, JTextArea instructie, JTextArea ram, JTextArea pageTable,
 			JTextArea realAdress, JLabel end, JTextArea aantalGeschrPR, JTextArea aantalGeschrRP, GlobalVar g) {
 		this.timer = timer;
 		this.instructie = instructie;

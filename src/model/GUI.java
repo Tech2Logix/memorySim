@@ -9,8 +9,9 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
-import listeners.Listener_XML1;
-import listeners.Listener_XML2;
+import listeners.Listener_enkeleInstructie;
+import listeners.Listener_alleInstructies;
+import listeners.Listener_deelInstructies;
 import listeners.Listener_Reset;
 
 public class GUI extends JFrame {
@@ -22,8 +23,9 @@ public class GUI extends JFrame {
 	private JPanel inhoudEind;
 
 	private JPanel knoppenPanel;
-	private JButton xml1;
-	private JButton xml2;
+	private JButton enkeleI;
+	private JButton alleI;
+	private JButton deelI;
 	private JButton reset;
 
 	private JComboBox<String> cb;
@@ -110,18 +112,23 @@ public class GUI extends JFrame {
 		knoppenPanel = new JPanel();
 		endJ = new JLabel(end);
 		knoppenPanel.setLayout(new FlowLayout(3, 1, 0));
-		xml1 = new JButton("Voer enkele instructie uit");
-		xml1.addActionListener(new Listener_XML1(timerJ, instructieJ, ramJ, pageTableJ, realAdressJ, endJ, aantalGeschrPRJ,
+		enkeleI = new JButton("Voer enkele instructie uit");
+		enkeleI.addActionListener(new Listener_enkeleInstructie(timerJ, instructieJ, ramJ, pageTableJ, realAdressJ, endJ, aantalGeschrPRJ,
 				aantalGeschrRPJ, g));
 
-		xml2 = new JButton("Voer alle instructies uit");
-		xml2.addActionListener(new Listener_XML2(timerJ, instructieJ, ramJ, pageTableJ, realAdressJ, endJ, aantalGeschrPRJ,
+		alleI = new JButton("Voer alle instructies uit");
+		alleI.addActionListener(new Listener_alleInstructies(timerJ, instructieJ, ramJ, pageTableJ, realAdressJ, endJ, aantalGeschrPRJ,
 				aantalGeschrRPJ, g));
+		deelI = new JButton("10%");
+		deelI.addActionListener(new Listener_deelInstructies(timerJ, instructieJ, ramJ, pageTableJ, realAdressJ, endJ, aantalGeschrPRJ,
+				aantalGeschrRPJ, g));
+		
 		reset = new JButton("Reset");
 		reset.addActionListener(new Listener_Reset(timerJ, instructieJ, ramJ, pageTableJ, realAdressJ, endJ, aantalGeschrPRJ,
 				aantalGeschrRPJ, g));
-		knoppenPanel.add(xml1);
-		knoppenPanel.add(xml2);
+		knoppenPanel.add(enkeleI);
+		knoppenPanel.add(alleI);
+		knoppenPanel.add(deelI);
 		knoppenPanel.add(reset);
 
 		cb = new JComboBox<String>();
