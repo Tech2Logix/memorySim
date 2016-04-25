@@ -151,9 +151,7 @@ public class ToestandMachine {
 			oudsteTotNu = timer;
 			huidigProcesID = huidigeInstr.getProcesID();
 
-			int teVervangenFrameNummer = 0;// moet een beginwaarde hebben, maakt
-											// niet uit wat dit is --> besproken
-											// in klas (21/4)
+			int teVervangenFrameNummer = 0;
 			for (int j = 0; j < 12; j++) {
 				if ((ram[j].getProces() == huidigProces) && (ram[j].getLastAcces() < oudsteTotNu)) {
 					teVervangenFrameNummer = j;
